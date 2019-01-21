@@ -30,8 +30,8 @@
         "test" : "vendor/bin/phpunit --colors=always",
         "test:d" : "vendor/bin/phpunit --testdox",
         "check:structure" : "pds-skeleton validate .",
-        "check" : "phpcs --standard=PSR2 --extensions=php examples src tests",
-        "s:7": "phpstan analyse examples src tests --level=7 --ansi -c phpstan.neon",
+        "check" : "phpcs --standard=PSR2 --extensions=php src tests",
+        "s:7": "phpstan analyse src tests --level=7 --ansi -c phpstan.neon",
         "all": "clear && composer s:7 && composer check && composer test"
     }
 }
