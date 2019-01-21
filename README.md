@@ -1,3 +1,3 @@
 # webservco/discogs-api
 
-A PHP interface to the Dicsogs API.
+A PHP client library for Discogs.

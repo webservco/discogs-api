@@ -1,7 +1,7 @@
 {
     "name" : "webservco/discogs-api",
     "type" : "library",
-    "description" : "A PHP interface to the Dicsogs API.",
+    "description" : "A PHP client library for Discogs.",
     "keywords" : [
         "webservco",
         "discogs-api"
