@@ -26,12 +26,15 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 
     public function get($endpoint)
     {
-        throw new \WebServCo\DiscogsApi\Exceptions\DiscogsApiException('Functionality not implemented.');
+        $url = sprintf('%s%s', Url::API, $endpoint);
+        //XXX TODO HANDLE RATE LIMITING
+        return $this->httpBrowserInterface->get($url);
     }
 
     public function post($endpoint, $data)
     {
-        throw new \WebServCo\DiscogsApi\Exceptions\DiscogsApiException('Functionality not implemented.');
+        //XXX TODO HANDLE RATE LIMITING
+        throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Functionality not implemented.');
     }
 
     /*
