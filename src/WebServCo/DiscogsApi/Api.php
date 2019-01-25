@@ -6,18 +6,18 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     protected $authInterface;
     protected $httpBrowserInterface;
     protected $loggerInterface;
-    protected $userAgent;
+    protected $settings;
 
     public function __construct(
         \WebServCo\DiscogsAuth\Interfaces\AuthInterface $authInterface,
         \WebServCo\Framework\Interfaces\HttpBrowserInterface $httpBrowserInterface,
         \WebServCo\Framework\Interfaces\LoggerInterface $loggerInterface,
-        $userAgent
+        Settings $settings
     ) {
         $this->authInterface = $authInterface;
         $this->httpBrowserInterface = $httpBrowserInterface;
         $this->loggerInterface = $loggerInterface;
-        $this->userAgent = $userAgent;
+        $this->settings = $settings;
 
         $this->setUserAgentHeader();
         $this->setAcceptHeader();
@@ -35,6 +35,11 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     {
         //XXX TODO HANDLE RATE LIMITING
         throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Functionality not implemented.');
+    }
+
+    public function setting($setting)
+    {
+        return $this->settings->get($setting);
     }
 
     /*
@@ -67,6 +72,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     */
     protected function setUserAgentHeader()
     {
-        $this->httpBrowserInterface->setRequestHeader('User-Agent', $this->userAgent);
+        $this->httpBrowserInterface->setRequestHeader('User-Agent', $this->setting('userAgent'));
     }
 }
