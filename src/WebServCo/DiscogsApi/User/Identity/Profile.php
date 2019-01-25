@@ -5,11 +5,17 @@ final class Profile extends \WebServCo\DiscogsApi\User\AbstractUser
 {
     public function get()
     {
-        throw new \WebServCo\DiscogsApi\Exceptions\DiscogsApiException('Functionality not implemented.');
+        $response = $this->api->get(sprintf('users/%s', $this->username));
+
+        if ($this->api->setting('processResponse')) {
+            $responseHandler = new \WebServCo\DiscogsApi\ResponseHandler($response);
+            return $responseHandler->handle();
+        }
+        return $response;
     }
 
     public function post()
     {
-        throw new \WebServCo\DiscogsApi\Exceptions\DiscogsApiException('Functionality not implemented.');
+        throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Functionality not implemented.');
     }
 }
