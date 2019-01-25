@@ -18,17 +18,6 @@ final class ResponseHandler
         $responseContent = $this->response->getContent();
         $responseData = json_decode($responseContent, true);
 
-/* *
-                echo '<pre>'; //XXX
-                $responseHeaders = $this->response->getHeaders();
-                var_dump($responseStatus); //XXX
-                var_dump($responseHeaders); //XXX
-                var_dump($responseContent); //XXX
-                var_dump($responseData); //XXX
-                //var_dump($x); //XXX
-                exit; //XXX
-/* */
-
         switch ($responseStatus) {
             case 200:
                 /*
