@@ -3,7 +3,7 @@ namespace WebServCo\DiscogsApi;
 
 use WebServCo\DiscogsApi\Exceptions\ApiException;
 
-final class ResponseHandler
+final class ResponseProcessor
 {
     protected $response;
 
@@ -12,11 +12,10 @@ final class ResponseHandler
         $this->response = $response;
     }
 
-    public function handle()
+    public function process()
     {
         $responseStatus = $this->response->getStatus();
-        $responseContent = $this->response->getContent();
-        $responseData = json_decode($responseContent, true);
+        $responseData = $this->getResponseData();
 
         switch ($responseStatus) {
             case 200:
@@ -78,10 +77,41 @@ final class ResponseHandler
                 * (which will help us track down your specific issue).
                 */
             default:
-                throw new ApiException(
-                    isset($responseData['message']) ? $responseData['message'] : ApiException::DEFAULT_MESSAGE
-                );
+                throw new ApiException($this->getMessage($responseData));
                 break;
         }
+    }
+
+    protected function getResponseData()
+    {
+        $responseContent = $this->response->getContent();
+        $contentType = $this->response->getHeader('Content-Type');
+        switch ($contentType) {
+            case 'application/json': // api
+                return json_decode($responseContent, true);
+                break;
+            case 'application/x-www-form-urlencoded': // oauth
+                $data = [];
+                parse_str($responseContent, $data);
+                return $data;
+                break;
+            case 'text/plain': // oauth
+                return $responseContent;
+                break;
+            default:
+                throw new ApiException('Api returned unsupported content type.');
+                break;
+        }
+    }
+
+    protected function getMessage($responseData)
+    {
+        if (isset($responseData['message'])) {
+            return $responseData['message'];
+        }
+        if (!empty($responseData)) {
+            return $responseData;
+        }
+        return ApiException::DEFAULT_MESSAGE;
     }
 }

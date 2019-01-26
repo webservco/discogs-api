@@ -18,14 +18,16 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     ) {
         $this->settings = $settings;
 
-        $this->setAuthInterface($authInterface);
         $this->httpBrowserInterface = $httpBrowserInterface;
         $this->loggerInterface = $loggerInterface;
+
+        /* below requires settings, browser */
 
         $this->httpBrowserInterface->setDebug($this->setting('debug'));
         $this->setUserAgentHeader();
         $this->setAcceptHeader();
-        $this->setAuthorizationHeader();
+
+        $this->setAuthInterface($authInterface);
     }
 
     public function get($endpoint)
@@ -44,8 +46,8 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     public function processResponse(\WebServCo\Framework\Http\Response $response)
     {
         if ($this->setting('processResponse')) {
-            $responseHandler = new \WebServCo\DiscogsApi\ResponseHandler($response);
-            return $responseHandler->handle();
+            $responseProcessor = new \WebServCo\DiscogsApi\ResponseProcessor($response);
+            return $responseProcessor->process();
         }
         return $response;
     }
@@ -53,6 +55,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     public function setAuthInterface(AuthInterface $authInterface)
     {
         $this->authInterface = $authInterface;
+        $this->setAuthorizationHeader();
     }
 
     public function setting($setting)
