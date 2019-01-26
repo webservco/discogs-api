@@ -77,7 +77,8 @@ final class ResponseProcessor
                 * (which will help us track down your specific issue).
                 */
             default:
-                throw new ApiException($this->getMessage($responseData));
+                $message = $this->getMessage($responseData);
+                throw new ApiException($message);
                 break;
         }
     }
@@ -93,6 +94,13 @@ final class ResponseProcessor
             case 'application/x-www-form-urlencoded': // oauth
                 $data = [];
                 parse_str($responseContent, $data);
+                if (!empty($data)) {
+                    $key = key($data);
+                    if (empty($data[$key])) {
+                        /* Sometimes Discogs returns a message with this content type instead of text/plain */
+                        return $key;
+                    }
+                }
                 return $data;
                 break;
             case 'text/plain': // oauth
@@ -106,11 +114,14 @@ final class ResponseProcessor
 
     protected function getMessage($responseData)
     {
+        if (isset($responseData['error'])) {
+            return $responseData['error'];
+        }
         if (isset($responseData['message'])) {
             return $responseData['message'];
         }
         if (!empty($responseData)) {
-            return $responseData;
+            return strval($responseData);
         }
         return ApiException::DEFAULT_MESSAGE;
     }

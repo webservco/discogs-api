@@ -70,9 +70,16 @@ final class ApiHelper
                 throw new \InvalidArgumentException(sprintf('Missing or invalid parameter: %s', $item));
             }
         }
+        foreach (['oauthToken', 'oauthTokenSecret'] as $item) {
+            if (empty($authConfig['oauth']['access'][$item])) {
+                throw new \InvalidArgumentException(sprintf('Missing or invalid parameter: %s', $item));
+            }
+        }
         return new \WebServCo\DiscogsAuth\OAuth\OAuth(
-            //$authConfig['app']['consumerKey'],
-            //$authConfig['app']['consumerSecret']
+            $authConfig['app']['consumerKey'],
+            $authConfig['app']['consumerSecret'],
+            $authConfig['oauth']['access']['oauthToken'],
+            $authConfig['oauth']['access']['oauthTokenSecret']
         );
     }
 

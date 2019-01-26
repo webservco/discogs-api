@@ -5,5 +5,5 @@ interface ApiInterface
 {
     public function get($endpoint);
 
-    public function post($endpoint, $data);
+    public function post($endpoint, $data = null);
 }
