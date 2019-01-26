@@ -1,6 +1,8 @@
 <?php
 namespace WebServCo\DiscogsApi;
 
+use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
+
 final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 {
     protected $authInterface;
@@ -9,18 +11,18 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     protected $settings;
 
     public function __construct(
-        \WebServCo\DiscogsAuth\Interfaces\AuthInterface $authInterface,
+        AuthInterface $authInterface,
         \WebServCo\Framework\Interfaces\HttpBrowserInterface $httpBrowserInterface,
         \WebServCo\Framework\Interfaces\LoggerInterface $loggerInterface,
         Settings $settings
     ) {
-        $this->authInterface = $authInterface;
-        $this->httpBrowserInterface = $httpBrowserInterface;
-        $this->loggerInterface = $loggerInterface;
         $this->settings = $settings;
 
-        $this->httpBrowserInterface->setDebug($this->setting('debug'));
+        $this->setAuthInterface($authInterface);
+        $this->httpBrowserInterface = $httpBrowserInterface;
+        $this->loggerInterface = $loggerInterface;
 
+        $this->httpBrowserInterface->setDebug($this->setting('debug'));
         $this->setUserAgentHeader();
         $this->setAcceptHeader();
         $this->setAuthorizationHeader();
@@ -37,6 +39,20 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     {
         //XXX TODO HANDLE RATE LIMITING
         throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Functionality not implemented.');
+    }
+
+    public function processResponse(\WebServCo\Framework\Http\Response $response)
+    {
+        if ($this->setting('processResponse')) {
+            $responseHandler = new \WebServCo\DiscogsApi\ResponseHandler($response);
+            return $responseHandler->handle();
+        }
+        return $response;
+    }
+
+    public function setAuthInterface(AuthInterface $authInterface)
+    {
+        $this->authInterface = $authInterface;
     }
 
     public function setting($setting)

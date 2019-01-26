@@ -71,8 +71,8 @@ final class ApiHelper
             }
         }
         return new \WebServCo\DiscogsAuth\OAuth\OAuth(
-            $authConfig['app']['consumerKey'],
-            $authConfig['app']['consumerSecret']
+            //$authConfig['app']['consumerKey'],
+            //$authConfig['app']['consumerSecret']
         );
     }
 

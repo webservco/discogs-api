@@ -1,5 +1,5 @@
 <?php
-namespace WebServCo\DiscogsApi\User;
+namespace WebServCo\DiscogsApi\Api\User;
 
 abstract class AbstractUser
 {
