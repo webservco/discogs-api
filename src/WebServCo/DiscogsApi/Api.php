@@ -19,6 +19,8 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         $this->loggerInterface = $loggerInterface;
         $this->settings = $settings;
 
+        $this->httpBrowserInterface->setDebug($this->setting('debug'));
+
         $this->setUserAgentHeader();
         $this->setAcceptHeader();
         $this->setAuthorizationHeader();
