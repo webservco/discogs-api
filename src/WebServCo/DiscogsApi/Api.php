@@ -9,18 +9,21 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     protected $authInterface;
     protected $httpBrowserInterface;
     protected $loggerInterface;
+    protected $throttleInterface;
     protected $settings;
 
     public function __construct(
         AuthInterface $authInterface,
         \WebServCo\Framework\Interfaces\HttpBrowserInterface $httpBrowserInterface,
         \WebServCo\Framework\Interfaces\LoggerInterface $loggerInterface,
+        \WebServCo\Framework\Interfaces\ThrottleInterface $throttleInterface,
         Settings $settings
     ) {
         $this->settings = $settings;
 
         $this->httpBrowserInterface = $httpBrowserInterface;
         $this->loggerInterface = $loggerInterface;
+        $this->throttleInterface = $throttleInterface;
 
         /* below requires settings, browser */
 
@@ -47,16 +50,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         return $this->processResponse($endpoint, Method::POST, $response);
     }
 
-    protected function processResponse($endpoint, $method, \WebServCo\Framework\Http\Response $response)
-    {
-        $apiResponse = new ApiResponse($endpoint, $method, $response); // \WebServCo\DiscogsApi\ApiResponse
-        if ($this->setting('handleResponse')) {
-            $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
-            return $apiResponseHandler->handle();
-        }
-        return $apiResponse;
-    }
-
     public function setAuthInterface(AuthInterface $authInterface)
     {
         $this->authInterface = $authInterface;
@@ -66,6 +59,16 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     public function setting($setting)
     {
         return $this->settings->get($setting);
+    }
+
+    protected function processResponse($endpoint, $method, \WebServCo\Framework\Http\Response $response)
+    {
+        $apiResponse = new ApiResponse($endpoint, $method, $response); // \WebServCo\DiscogsApi\ApiResponse
+        if ($this->setting('handleResponse')) {
+            $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
+            return $apiResponseHandler->handle();
+        }
+        return $apiResponse;
     }
 
     /*

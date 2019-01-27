@@ -3,7 +3,7 @@ namespace WebServCo\DiscogsApi;
 
 final class ApiHelper
 {
-    public static function init($apiConfig, $logPath)
+    public static function init($apiConfig, $logPath, $tmpPath)
     {
         $authLibrary = self::initAuthLibrary($apiConfig);
 
@@ -24,9 +24,11 @@ final class ApiHelper
         $browser = new \WebServCo\Framework\CurlBrowser($browserLogger);
         $browser->setDebug(true);
 
+        $throttle = new RateLimiter($tmpPath);
+
         $settings = self::initSettings($apiConfig);
 
-        return new Api($authLibrary, $browser, $logger, $settings);
+        return new Api($authLibrary, $browser, $logger, $throttle, $settings);
     }
 
     protected static function initAuthLibrary($apiConfig)
