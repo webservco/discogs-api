@@ -18,3 +18,4 @@ A PHP client library for Discogs.
 * [Initialization](/docs/Initialization.md)
 * [Usage](/docs/Usage.md)
 * [Settings](/docs/Settings.md)
+* [Rate Limiting](/docs/RateLimiting.md)

@@ -53,6 +53,11 @@ final class ApiResponse
         return $this->method;
     }
 
+    public function getRateLimitRemaining()
+    {
+        return (int) $this->response->GetHeader('X-Discogs-Ratelimit-Remaining');
+    }
+
     public function getStatus()
     {
         return $this->status;

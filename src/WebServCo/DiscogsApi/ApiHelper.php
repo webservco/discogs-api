@@ -97,7 +97,7 @@ final class ApiHelper
 
     protected static function initSettings($apiConfig)
     {
-        foreach (['debug', 'handleResponse', 'userAgent'] as $item) {
+        foreach (['debug', 'handleResponse', 'rateLimiting', 'userAgent'] as $item) {
             if (!isset($apiConfig['settings'][$item])) {
                 throw new \InvalidArgumentException(sprintf('Missing or invalid parameter: %s', $item));
             }
@@ -105,6 +105,7 @@ final class ApiHelper
         return new Settings(
             $apiConfig['settings']['debug'],
             $apiConfig['settings']['handleResponse'],
+            $apiConfig['settings']['rateLimiting'],
             $apiConfig['settings']['userAgent']
         );
     }

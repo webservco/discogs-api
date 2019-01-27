@@ -16,7 +16,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         AuthInterface $authInterface,
         \WebServCo\Framework\Interfaces\HttpBrowserInterface $httpBrowserInterface,
         \WebServCo\Framework\Interfaces\LoggerInterface $loggerInterface,
-        \WebServCo\Framework\Interfaces\ThrottleInterface $throttleInterface,
+        \WebServCo\DiscogsApi\Interfaces\ThrottleInterface $throttleInterface,
         Settings $settings
     ) {
         $this->settings = $settings;
@@ -36,18 +36,32 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 
     public function get($endpoint)
     {
-        $url = sprintf('%s%s', Url::API, $endpoint);
-        //XXX TODO HANDLE RATE LIMITING
-        $response = $this->httpBrowserInterface->get($url); // \WebServCo\Framework\Http\Response
-        return $this->processResponse($endpoint, Method::GET, $response);
+        return $this->call($endpoint, Method::GET);
     }
 
     public function post($endpoint, $data = null)
     {
+        return $this->call($endpoint, Method::POST, $data);
+    }
+
+    protected function call($endpoint, $method, $data = null)
+    {
         $url = sprintf('%s%s', Url::API, $endpoint);
-        //XXX TODO HANDLE RATE LIMITING
-        $response = $this->httpBrowserInterface->post($url, $data); // \WebServCo\Framework\Http\Response
-        return $this->processResponse($endpoint, Method::POST, $response);
+        if ($this->setting('rateLimiting')) {
+            $this->throttleInterface->throttle();
+        }
+        switch ($method) {
+            case Method::GET:
+                $response = $this->httpBrowserInterface->get($url); // \WebServCo\Framework\Http\Response
+                break;
+            case Method::POST:
+                $response = $this->httpBrowserInterface->post($url, $data); // \WebServCo\Framework\Http\Response
+                break;
+            default:
+                throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Method not implemented.');
+                break;
+        }
+        return $this->processResponse($endpoint, $method, $response);
     }
 
     public function setAuthInterface(AuthInterface $authInterface)
@@ -64,6 +78,11 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     protected function processResponse($endpoint, $method, \WebServCo\Framework\Http\Response $response)
     {
         $apiResponse = new ApiResponse($endpoint, $method, $response); // \WebServCo\DiscogsApi\ApiResponse
+        if ($this->setting('rateLimiting')) {
+            $rateLimitRemaining = $apiResponse->getRateLimitRemaining();
+            $this->throttleInterface->set($rateLimitRemaining);
+        }
+        
         if ($this->setting('handleResponse')) {
             $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
             return $apiResponseHandler->handle();

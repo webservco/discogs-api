@@ -3,9 +3,9 @@ namespace WebServCo\DiscogsApi;
 
 use WebServCo\DiscogsApi\Exceptions\ApiException;
 
-final class RateLimiter implements \WebServCo\Framework\Interfaces\ThrottleInterface
+final class RateLimiter implements \WebServCo\DiscogsApi\Interfaces\ThrottleInterface
 {
-    protected $workDir;
+    protected $filePath;
 
     public function __construct($workDir)
     {
@@ -15,6 +15,35 @@ final class RateLimiter implements \WebServCo\Framework\Interfaces\ThrottleInter
         if (!is_writable($workDir)) {
             throw new ApiException('Work directory not writeable');
         }
-        $this->workDir = $workDir;
+        $filePath = sprintf('%sDiscogsApiRateLimiter', $workDir);
+        try {
+            // make sure the file exists and is writable, but don't actually write in it.
+            touch($filePath);
+        } catch (\Exception $e) {
+            throw new ApiException('Error writing in work directory');
+        }
+        $this->filePath = $filePath;
+    }
+
+    public function get()
+    {
+        return (int) file_get_contents($this->filePath);
+    }
+
+    public function set($value)
+    {
+        file_put_contents($this->filePath, $value);
+    }
+
+    public function throttle()
+    {
+        $value = $this->get();
+
+        if (1 == $value) {
+            // only one request left, wait for request window reset
+            sleep(60);
+            return true;
+        }
+        return false;
     }
 }
