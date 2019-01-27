@@ -10,6 +10,7 @@ A PHP client library for Discogs.
 
 * [Endpoints](/docs/Endpoints)
 * [Authorization](/docs/Authorization.md)
+* [OAuth Flow](/docs/OAuthFlow.md)
 * [Troubleshooting](/docs/Troubleshooting.md)
 
 ### Library
