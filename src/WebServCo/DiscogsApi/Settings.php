@@ -4,13 +4,13 @@ namespace WebServCo\DiscogsApi;
 final class Settings
 {
     protected $debug;
-    protected $processResponse;
+    protected $handleResponse;
     protected $userAgent;
 
-    public function __construct($debug, $processResponse, $userAgent)
+    public function __construct($debug, $handleResponse, $userAgent)
     {
         $this->debug = (bool) $debug;
-        $this->processResponse = (bool) $processResponse;
+        $this->handleResponse = (bool) $handleResponse;
         $this->userAgent = $userAgent;
     }
 

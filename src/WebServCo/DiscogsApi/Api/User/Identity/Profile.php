@@ -5,9 +5,7 @@ final class Profile extends \WebServCo\DiscogsApi\Api\User\AbstractUser
 {
     public function get()
     {
-        $response = $this->api->get(sprintf('users/%s', $this->username));
-
-        return $this->api->processResponse($response);
+        return $this->api->get(sprintf('users/%s', $this->username));
     }
 
     public function post()

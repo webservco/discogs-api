@@ -1,22 +1,18 @@
 <?php
 namespace WebServCo\DiscogsApi;
 
-use WebServCo\DiscogsApi\Exceptions\ApiException;
-
-final class ResponseProcessor
+final class ApiResponseHandler
 {
-    protected $response;
+    protected $apiResponse;
 
-    public function __construct(\WebServCo\Framework\Http\Response $response)
+    public function __construct(ApiResponse $apiResponse)
     {
-        $this->response = $response;
+        $this->apiResponse = $apiResponse;
     }
 
-    public function process()
+    public function handle()
     {
-        $responseStatus = $this->response->getStatus();
-        $responseData = $this->getResponseData();
-
+        $responseStatus = $this->apiResponse->getStatus();
         switch ($responseStatus) {
             case 200:
                 /*
@@ -35,7 +31,7 @@ final class ResponseProcessor
                 * The request was successful, and the server has no additional information to convey,
                 * so the response body is empty.
                 */
-                return $responseData;
+                return $this->apiResponse;
                 break;
             case 401:
                 /*
@@ -77,52 +73,11 @@ final class ResponseProcessor
                 * (which will help us track down your specific issue).
                 */
             default:
-                $message = $this->getMessage($responseData);
-                throw new ApiException($message);
+                $message = $this->apiResponse->getErrorMessage();
+                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException(
+                    $message
+                );
                 break;
         }
-    }
-
-    protected function getResponseData()
-    {
-        $responseContent = $this->response->getContent();
-        $contentType = $this->response->getHeader('Content-Type');
-        switch ($contentType) {
-            case 'application/json': // api
-                return json_decode($responseContent, true);
-                break;
-            case 'application/x-www-form-urlencoded': // oauth
-                $data = [];
-                parse_str($responseContent, $data);
-                if (!empty($data)) {
-                    $key = key($data);
-                    if (empty($data[$key])) {
-                        /* Sometimes Discogs returns a message with this content type instead of text/plain */
-                        return $key;
-                    }
-                }
-                return $data;
-                break;
-            case 'text/plain': // oauth
-                return $responseContent;
-                break;
-            default:
-                throw new ApiException('Api returned unsupported content type.');
-                break;
-        }
-    }
-
-    protected function getMessage($responseData)
-    {
-        if (isset($responseData['error'])) {
-            return $responseData['error'];
-        }
-        if (isset($responseData['message'])) {
-            return $responseData['message'];
-        }
-        if (!empty($responseData)) {
-            return strval($responseData);
-        }
-        return ApiException::DEFAULT_MESSAGE;
     }
 }

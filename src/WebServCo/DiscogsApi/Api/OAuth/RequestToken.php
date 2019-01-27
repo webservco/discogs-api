@@ -5,8 +5,6 @@ final class RequestToken extends \WebServCo\DiscogsApi\Api\AbstractApi
 {
     public function get()
     {
-        $response = $this->api->get('oauth/request_token');
-
-        return $this->api->processResponse($response);
+        return $this->api->get('oauth/request_token');
     }
 }

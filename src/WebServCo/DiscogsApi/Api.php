@@ -2,6 +2,7 @@
 namespace WebServCo\DiscogsApi;
 
 use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
+use WebServCo\Framework\Http\Method;
 
 final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 {
@@ -34,23 +35,26 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     {
         $url = sprintf('%s%s', Url::API, $endpoint);
         //XXX TODO HANDLE RATE LIMITING
-        return $this->httpBrowserInterface->get($url);
+        $response = $this->httpBrowserInterface->get($url); // \WebServCo\Framework\Http\Response
+        return $this->processResponse($endpoint, Method::GET, $response);
     }
 
     public function post($endpoint, $data = null)
     {
         $url = sprintf('%s%s', Url::API, $endpoint);
         //XXX TODO HANDLE RATE LIMITING
-        return $this->httpBrowserInterface->post($url, $data);
+        $response = $this->httpBrowserInterface->post($url, $data); // \WebServCo\Framework\Http\Response
+        return $this->processResponse($endpoint, Method::POST, $response);
     }
 
-    public function processResponse(\WebServCo\Framework\Http\Response $response)
+    protected function processResponse($endpoint, $method, \WebServCo\Framework\Http\Response $response)
     {
-        if ($this->setting('processResponse')) {
-            $responseProcessor = new \WebServCo\DiscogsApi\ResponseProcessor($response);
-            return $responseProcessor->process();
+        $apiResponse = new ApiResponse($endpoint, $method, $response); // \WebServCo\DiscogsApi\ApiResponse
+        if ($this->setting('handleResponse')) {
+            $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
+            return $apiResponseHandler->handle();
         }
-        return $response;
+        return $apiResponse;
     }
 
     public function setAuthInterface(AuthInterface $authInterface)
