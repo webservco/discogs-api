@@ -4,15 +4,13 @@
 
 ---
 
-## `processResponse`
+## `debug`
 
-### `true`
-Discogs API response is processed and data is returned as an array.
-In case of an error, an `ApiException` is thrown.
+---
 
-### `false`
+## `handleResponse`
 
-No error or data processing is being done. Discogs API response is returned as it is, using a `\WebServCo\Framework\Http\Response` object.
+When set to `true`, an `ApiResponseException` is thrown in case of an API error.
 
 ---
 
