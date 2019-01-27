@@ -5,7 +5,15 @@ A PHP client library for Discogs.
 ---
 
 ## Documentation
+
+### Discogs API
+
 * [Endpoints](/docs/Endpoints)
+* [Authorization](/docs/Authorization.md)
+* [Troubleshooting](/docs/Troubleshooting.md)
+
+### Library
+
 * [Initialization](/docs/Initialization.md)
 * [Usage](/docs/Usage.md)
 * [Settings](/docs/Settings.md)
