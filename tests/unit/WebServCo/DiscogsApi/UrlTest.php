@@ -11,7 +11,7 @@ final class UrlTest extends TestCase
      */
     public function apiUrlMatches()
     {
-        $this->assertEquals(URL::API, 'https://api.discogs.com/');
+        $this->assertEquals(Url::API, 'https://api.discogs.com/');
     }
 
     /**
@@ -19,6 +19,6 @@ final class UrlTest extends TestCase
      */
     public function webUrlMatches()
     {
-        $this->assertEquals(URL::WEB, 'https://www.discogs.com/');
+        $this->assertEquals(Url::WEB, 'https://www.discogs.com/');
     }
 }
