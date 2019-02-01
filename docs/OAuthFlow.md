@@ -5,7 +5,7 @@ https://www.discogs.com/developers/#page:authentication,header:authentication-oa
 ---
 
 ## Step 1
-Obtain `Consumer Key` and `Consumer Secret`
+Obtain `Consumer Key` and `Consumer Secret`.
 
 ---
 
@@ -32,10 +32,9 @@ oauth_token_secret
 oauth_callback_confirmed
 ```
 
-### Project
-`Oauth/requestToken`
-
-Note `oauth_token` and `oauth_token_secret`, add to Discogs configuration array, `api/oauth/flow`.
+> Example project: `Oauth/requestToken`
+>
+> Note `oauth_token` and `oauth_token_secret`, add to Discogs configuration array, `api/oauth/flow`.
 
 ---
 
@@ -48,21 +47,14 @@ https://discogs.com/oauth/authorize?oauth_token=<your_oauth_request_token>
 ```
 Redirects to `oauth_callback` (`GET`).
 
-Parameters received:
-```
-oauth_token
-oauth_verifier
-```
-
-### Project
-`Oauth/redirect`
-
-After authorization, you will be redirected to the callback url: `Oauth/callback`.
+> Example project: `Oauth/redirect`
+>
+> After authorization, you will be redirected to the callback url: `Oauth/callback`.
 
 ### Authorized
 Receive: `oauth_token` (from step 2), `oauth_verifier`.
 
-Note: `oauth_verifier`, add to Discogs configuration array, `api/oauth/flow`.
+> Note: `oauth_verifier`, add to Discogs configuration array, `api/oauth/flow`.
 
 ### Denied
 Receive: `denied` (oauth token from step 2)
@@ -92,11 +84,9 @@ oauth_token
 oauth_token_secret
 ```
 
-### Project
-
-`Oauth/accessToken`
-
-Note `oauth_token` and `oauth_token_secret`, add to Discogs configuration array, `api/oauth/access`.
+> Example project: `Oauth/accessToken`
+>
+> Note `oauth_token` and `oauth_token_secret`, add to Discogs configuration array, `api/oauth/access`.
 
 ---
 
@@ -104,8 +94,6 @@ Note `oauth_token` and `oauth_token_secret`, add to Discogs configuration array,
 
 `GET` `https://api.discogs.com/oauth/identity`
 
-### Project
-
-`Oauth/identity`
-
 Verify.
+
+> Example project: `Oauth/identity`
