@@ -53,23 +53,22 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         }
         switch ($method) {
             case Method::GET:
-                $response = $this->httpBrowserInterface->get($url); // \WebServCo\Framework\Http\Response
                 break;
             case Method::POST:
                 if (!empty($data)) {
                     if (is_array($data)) {
                         $data = json_encode($data);
                     }
-                    $this->httpBrowserInterface->setMethod($method);
                     $this->httpBrowserInterface->setRequestContentType('application/json');
                     $this->httpBrowserInterface->setRequestData($data);
                 }
-                $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
                 break;
             default:
                 throw new ApiException('Method not implemented.');
                 break;
         }
+        $this->httpBrowserInterface->setMethod($method);
+        $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
         return $this->processResponse($endpoint, $method, $response);
     }
 
