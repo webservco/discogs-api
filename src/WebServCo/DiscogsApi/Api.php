@@ -62,7 +62,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                     }
                     $this->httpBrowserInterface->setMethod($method);
                     $this->httpBrowserInterface->setRequestContentType('application/json');
-                    $this->httpBrowserInterface->setPostData($data);
+                    $this->httpBrowserInterface->setRequestData($data);
                 }
                 $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
                 break;
