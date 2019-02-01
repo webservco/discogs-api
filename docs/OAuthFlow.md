@@ -48,7 +48,7 @@ https://discogs.com/oauth/authorize?oauth_token=<your_oauth_request_token>
 ```
 Redirects to `oauth_callback` (`GET`).
 
-Parameters:
+Parameters received:
 ```
 oauth_token
 oauth_verifier
