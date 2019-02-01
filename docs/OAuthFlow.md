@@ -57,8 +57,6 @@ oauth_verifier
 ### Project
 `Oauth/redirect`
 
-Redirects user to `https://discogs.com/oauth/authorize?oauth_token=<oauth_token>`
-
 After authorization, you will be redirected to the callback url: `Oauth/callback`.
 
 ### Authorized
