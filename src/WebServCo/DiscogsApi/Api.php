@@ -1,6 +1,7 @@
 <?php
 namespace WebServCo\DiscogsApi;
 
+use WebServCo\DiscogsApi\Exceptions\ApiException;
 use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
 use WebServCo\Framework\Http\Method;
 
@@ -55,10 +56,18 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                 $response = $this->httpBrowserInterface->get($url); // \WebServCo\Framework\Http\Response
                 break;
             case Method::POST:
-                $response = $this->httpBrowserInterface->post($url, $data); // \WebServCo\Framework\Http\Response
+                if (!empty($data)) {
+                    if (is_array($data)) {
+                        $data = json_encode($data);
+                    }
+                    $this->httpBrowserInterface->setMethod($method);
+                    $this->httpBrowserInterface->setRequestContentType('application/json');
+                    $this->httpBrowserInterface->setPostData($data);
+                }
+                $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
                 break;
             default:
-                throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Method not implemented.');
+                throw new ApiException('Method not implemented.');
                 break;
         }
         return $this->processResponse($endpoint, $method, $response);
@@ -82,7 +91,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
             $rateLimitRemaining = $apiResponse->getRateLimitRemaining();
             $this->throttleInterface->set($rateLimitRemaining);
         }
-        
+
         if ($this->setting('handleResponse')) {
             $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
             return $apiResponseHandler->handle();
