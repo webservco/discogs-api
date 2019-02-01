@@ -8,7 +8,7 @@ A PHP client library for Discogs.
 
 ### Discogs API
 
-* [Endpoints](/docs/Endpoints)
+* [Endpoints](/docs/Endpoints.md)
 * [Authorization](/docs/Authorization.md)
 * [OAuth Flow](/docs/OAuthFlow.md)
 * [Troubleshooting](/docs/Troubleshooting.md)
