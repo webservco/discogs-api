@@ -17,12 +17,12 @@ Send
 ```
 Content-Type: application/x-www-form-urlencoded
 Authorization:
-        OAuth oauth_consumer_key="your_consumer_key",
-        oauth_nonce="qwerty",
-        oauth_signature="your_consumer_secret&",
-        oauth_signature_method="PLAINTEXT",
-        oauth_timestamp="current_timestamp",
-        oauth_callback="your_callback"
+    OAuth oauth_consumer_key="your_consumer_key",
+    oauth_nonce="qwerty",
+    oauth_signature="your_consumer_secret&",
+    oauth_signature_method="PLAINTEXT",
+    oauth_timestamp="current_timestamp",
+    oauth_callback="your_callback"
 User-Agent: some_user_agent
 ```
 Receive
@@ -69,13 +69,13 @@ Send
 ```
 Content-Type: application/x-www-form-urlencoded
 Authorization:
-        OAuth oauth_consumer_key="your_consumer_key",
-        oauth_nonce="random_string_or_timestamp",
-        oauth_token="oauth_token_received_from_step_2"
-        oauth_signature="your_consumer_secret&",
-        oauth_signature_method="PLAINTEXT",
-        oauth_timestamp="current_timestamp",
-        oauth_verifier="users_verifier"
+    OAuth oauth_consumer_key="your_consumer_key",
+    oauth_nonce="random_string_or_timestamp",
+    oauth_token="oauth_token_received_from_step_2"
+    oauth_signature="your_consumer_secret&",
+    oauth_signature_method="PLAINTEXT",
+    oauth_timestamp="current_timestamp",
+    oauth_verifier="users_verifier"
 User-Agent: some_user_agent
 ```
 Receive
@@ -95,5 +95,16 @@ oauth_token_secret
 `GET` `https://api.discogs.com/oauth/identity`
 
 Verify.
+
+Send:
+```
+Authorization:
+    OAuth oauth_consumer_key="your_consumer_key",
+    oauth_nonce="random_string_or_timestamp",
+    oauth_token="oauth_token_received_from_oauth_flow_procedure",
+    oauth_signature="your_consumer_secret&oauth_token_secret_received_from_oauth_flow_procedure",
+    oauth_signature_method="PLAINTEXT",
+    oauth_timestamp="current_timestamp"
+```
 
 > Example project: `Oauth/identity`
