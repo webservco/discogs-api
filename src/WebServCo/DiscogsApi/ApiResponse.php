@@ -72,15 +72,12 @@ final class ApiResponse
                 return json_decode($responseContent, true);
                 break;
             case 'application/x-www-form-urlencoded': // oauth
+                if (false === strpos($responseContent, '=')) {
+                    /* Sometimes Discogs returns text/plain with this content type ... */
+                    return $responseContent;
+                }
                 $data = [];
                 parse_str($responseContent, $data);
-                if (!empty($data)) {
-                    $key = key($data);
-                    if (empty($data[$key])) {
-                        /* Sometimes Discogs returns a message with this content type instead of text/plain */
-                        return $key;
-                    }
-                }
                 return $data;
                 break;
             case 'text/plain': // oauth
