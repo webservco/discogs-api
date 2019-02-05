@@ -12,7 +12,6 @@
 
 When set to `true`, an `ApiResponseException` is thrown in case of an API error.
 
-
 ---
 
 ## `rateLimiting`
