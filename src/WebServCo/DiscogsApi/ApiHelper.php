@@ -73,7 +73,8 @@ final class ApiHelper
             }
         }
         foreach (['oauthToken', 'oauthTokenSecret'] as $item) {
-            if (empty($authConfig['oauth']['access'][$item])) {
+            // permanent tokens may not be set yet; check only field existance
+            if (!isset($authConfig['oauth']['access'][$item])) {
                 throw new \InvalidArgumentException(sprintf('Missing or invalid parameter: %s', $item));
             }
         }
