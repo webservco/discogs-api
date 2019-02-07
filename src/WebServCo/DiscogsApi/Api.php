@@ -68,6 +68,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                 break;
         }
         $this->httpBrowserInterface->setMethod($method);
+        $this->setAuthorizationHeader();
         $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
         return $this->processResponse($endpoint, $method, $response);
     }
@@ -75,7 +76,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     public function setAuthInterface(AuthInterface $authInterface)
     {
         $this->authInterface = $authInterface;
-        $this->setAuthorizationHeader();
     }
 
     public function setting($setting)
