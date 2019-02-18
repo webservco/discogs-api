@@ -15,7 +15,6 @@ final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
                 $result .= " {$data[$i]['join']} ";
             }
         }
-
         return $result;
     }
 }
