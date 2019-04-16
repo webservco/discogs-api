@@ -22,7 +22,6 @@ final class ApiHelper
         );
 
         $browser = new \WebServCo\Framework\CurlBrowser($browserLogger);
-        $browser->setDebug(true);
 
         $throttle = new RateLimiter($tmpPath);
 
