@@ -31,6 +31,6 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
 
     public function getRateLimitRemaining()
     {
-        return (int) $this->response->GetHeader('X-Discogs-Ratelimit-Remaining');
+        return (int) $this->response->getHeader('x-discogs-ratelimit-remaining');
     }
 }
