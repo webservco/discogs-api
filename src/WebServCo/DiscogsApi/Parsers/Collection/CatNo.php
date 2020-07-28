@@ -1,19 +1,16 @@
 <?php
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
-final class Label implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
+final class CatNo implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
     public static function parse($data)
     {
         $result = null;
         if (isset($data['entity_type']) && isset($data['name'])) {
             if (1 == $data['entity_type']) { // label
-                $result = $data['name'];
-                /* Catalog number removed 28.07.2020, separate field needed
                 if (!empty($data['catno']) && 'none' != $data['catno']) {
-                    $result .= sprintf(' (%s)', $data['catno']);
+                    $result = $data['catno'];
                 }
-                */
             }
         }
         return $result;
