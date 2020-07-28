@@ -32,7 +32,6 @@ final class ApiResponseHandler
                 * so the response body is empty.
                 */
                 return $this->apiResponse;
-                break;
             case 401:
                 /*
                 * Unauthorized
@@ -77,7 +76,6 @@ final class ApiResponseHandler
                 throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException(
                     $message
                 );
-                break;
         }
     }
 }

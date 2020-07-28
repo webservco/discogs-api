@@ -65,7 +65,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                 break;
             default:
                 throw new ApiException('Method not implemented.');
-                break;
         }
         $this->httpBrowserInterface->setMethod($method);
         $this->setAuthorizationHeader();

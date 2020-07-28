@@ -38,16 +38,12 @@ final class ApiHelper
         switch ($apiConfig['auth']['type']) {
             case 'user':
                 return self::initUserAuthLibrary($apiConfig['auth']);
-                break;
             case 'app':
                 return self::initAppAuthLibrary($apiConfig['auth']);
-                break;
             case 'oauth':
                 return self::initOauthAuthLibrary($apiConfig['auth']);
-                break;
             default:
                 throw new \InvalidArgumentException('Invalid parameter: auth type');
-                break;
         }
     }
 
