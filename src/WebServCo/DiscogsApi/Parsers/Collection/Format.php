@@ -13,7 +13,10 @@ final class Format implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
             $result .= $data['name'];
         }
         if (isset($data['descriptions'])) {
-            $result .= ' ' . \WebServCo\DiscogsApi\Parsers\Collection\FormatDescriptions::parse($data['descriptions']);
+            $result .= ', ' . \WebServCo\DiscogsApi\Parsers\Collection\FormatDescriptions::parse($data['descriptions']);
+        }
+        if (isset($data['text'])) {
+            $result .= sprintf(', %s', $data['text']);
         }
         return $result;
     }
