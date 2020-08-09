@@ -9,7 +9,7 @@ final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
         $result = null;
         $items = count($data);
         for ($i = 0; $i < $items; $i++) {
-            $result .= !empty($data[$i]['anv']) ? $data[$i]['anv'] : $nameUtility->removeNumbering($data[$i]['name']);
+            $result .= !empty($data[$i]['anv']) ? $data[$i]['anv'] : $data[$i]['name'];
             $next = $i + 1;
             if (array_key_exists($next, $data)) {
                 $result .= " {$data[$i]['join']} ";
