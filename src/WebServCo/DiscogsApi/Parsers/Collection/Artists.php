@@ -5,7 +5,6 @@ final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
     public static function parse($data)
     {
-        $nameUtility = new \WebServCo\DiscogsApi\Utilities\Name();
         $result = null;
         $items = count($data);
         for ($i = 0; $i < $items; $i++) {
