@@ -32,8 +32,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'date_added',
             'date_changed',
             'uri',
-            'resource_url',
-            'image_url'
+            'resource_url'
             ] as $item) {
             if (empty($data[$item])) {
                 throw new ValidatorException(sprintf('Empty required item: %s', $item));
