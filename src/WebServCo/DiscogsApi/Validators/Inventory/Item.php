@@ -1,5 +1,5 @@
 <?php
-namespace WebServCo\DiscogsApi\Validators\Marketplace;
+namespace WebServCo\DiscogsApi\Validators\Inventory;
 
 use WebServCo\DiscogsApi\Exceptions\ValidatorException;
 
