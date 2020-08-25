@@ -50,8 +50,6 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'posted',
             'price',
             'original_price',
-            'shipping_price',
-            'original_shipping_price',
             'seller',
             'release',
             'format_quantity',
@@ -70,14 +68,18 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
                 throw new ValidatorException(sprintf('Empty required item: %s', $item));
             }
         }
-        foreach (['value', 'currency'] as $item) {
-            if (empty($data['shipping_price'][$item])) {
-                throw new ValidatorException(sprintf('Empty required item: %s', $item));
+        if (!empty($data['shipping_price'])) {
+            foreach (['value', 'currency'] as $item) {
+                if (empty($data['shipping_price'][$item])) {
+                    throw new ValidatorException(sprintf('Empty required item: %s', $item));
+                }
             }
         }
-        foreach (['curr_abbr', 'curr_id', 'formatted', 'value'] as $item) {
-            if (empty($data['original_shipping_price'][$item])) {
-                throw new ValidatorException(sprintf('Empty required item: %s', $item));
+        if (!empty($data['original_shipping_price'])) {
+            foreach (['curr_abbr', 'curr_id', 'formatted', 'value'] as $item) {
+                if (empty($data['original_shipping_price'][$item])) {
+                    throw new ValidatorException(sprintf('Empty required item: %s', $item));
+                }
             }
         }
         foreach ([
