@@ -26,7 +26,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         $this->loggerInterface = $loggerInterface;
         $this->throttleInterface = $throttleInterface;
 
-        /* below requires settings, browser */
+        /* code below requires settings, browser */
 
         $this->httpBrowserInterface->setDebug($this->setting('debug'));
         $this->setUserAgentHeader();
