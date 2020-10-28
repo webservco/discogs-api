@@ -106,8 +106,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['rating', 'stars', 'total'] as $item) {
-            if (empty($data['seller']['stats'][$item])) {
-                throw new ValidatorException(sprintf('Empty required item: %s', $item));
+            if (!isset($data['seller']['stats'][$item])) {
+                throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
         foreach ([
