@@ -35,7 +35,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'external_id',
             'location',
             ] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -96,7 +96,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'shipping',
             'resource_url',
             ] as $item) {
-            if (!isset($data['seller'][$item])) {
+            if (!array_key_exists($item, $data['seller'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -106,7 +106,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['rating', 'stars', 'total'] as $item) {
-            if (!isset($data['seller']['stats'][$item])) {
+            if (!array_key_exists($item, $data['seller']['stats'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -123,7 +123,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'catalog_number',
             'stats',
             ] as $item) {
-            if (!isset($data['release'][$item])) {
+            if (!array_key_exists($item, $data['release'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -152,7 +152,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'in_wantlist',
             'in_collection',
             ] as $item) {
-            if (!isset($data['release']['stats']['community'][$item])) {
+            if (!array_key_exists($item, $data['release']['stats']['community'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -160,7 +160,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'in_wantlist',
             'in_collection',
             ] as $item) {
-            if (!isset($data['release']['stats']['user'][$item])) {
+            if (!array_key_exists($item, $data['release']['stats']['user'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }

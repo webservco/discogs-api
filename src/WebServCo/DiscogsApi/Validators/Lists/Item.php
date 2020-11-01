@@ -22,7 +22,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'resource_url',
             'image_url'
             ] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -39,7 +39,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['id', 'avatar_url', 'username', 'resource_url'] as $item) {
-            if (!isset($data['user'][$item])) {
+            if (!array_key_exists($item, $data['user'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }

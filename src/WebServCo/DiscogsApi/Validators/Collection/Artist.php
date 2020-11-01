@@ -12,7 +12,7 @@ final class Artist implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterfac
         }
 
         foreach (['join', 'name', 'anv', 'tracks', 'role', 'resource_url', 'id'] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }

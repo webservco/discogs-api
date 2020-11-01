@@ -16,7 +16,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['rating', 'notes'] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
@@ -28,7 +28,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
         foreach ([
             'resource_url', 'year', 'thumb', 'cover_image', 'genres', 'styles'] as $item) {
             // Can be missing: 'master_id', 'master_url'
-            if (!isset($data['basic_information'][$item])) {
+            if (!array_key_exists($item, $data['basic_information'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }

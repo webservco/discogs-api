@@ -17,13 +17,13 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['rating', 'folder_id'] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
 
         foreach (['labels', 'year', 'artists', 'thumb', 'title', 'formats', 'master_id'] as $item) {
-            if (!isset($data['basic_information'][$item])) {
+            if (!array_key_exists($item, $data['basic_information'])) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }

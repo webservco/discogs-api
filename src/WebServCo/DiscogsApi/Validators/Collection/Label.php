@@ -12,7 +12,7 @@ final class Label implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
         }
 
         foreach (['name', 'entity_type', 'catno', 'resource_url', 'id', 'entity_type_name'] as $item) {
-            if (!isset($data[$item])) {
+            if (!array_key_exists($item, $data)) {
                 throw new ValidatorException(sprintf('Missing required item: %s', $item));
             }
         }
