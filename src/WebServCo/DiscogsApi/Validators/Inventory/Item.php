@@ -52,7 +52,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'original_price',
             'seller',
             'release',
-            'format_quantity',
+            // 'format_quantity', this can be empty (01.11.2020 SchusterBach)
             ] as $item) {
             if (empty($data[$item])) {
                 throw new ValidatorException(sprintf('Empty required item: %s', $item));
