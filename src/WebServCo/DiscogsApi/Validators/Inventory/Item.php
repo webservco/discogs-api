@@ -90,7 +90,6 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'stats',
             'url',
             'username',
-            'is_mp2020_seller',
             'min_order_total',
             'payment',
             'shipping',
