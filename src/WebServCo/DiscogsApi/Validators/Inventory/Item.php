@@ -69,7 +69,12 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         if (!empty($data['shipping_price'])) {
-            foreach (['value', 'currency'] as $item) {
+            foreach (['value'] as $item) {
+                if (!isset($data['shipping_price'][$item])) {
+                    throw new ValidatorException(sprintf('Missing required item: %s', $item));
+                }
+            }
+            foreach (['currency'] as $item) {
                 if (empty($data['shipping_price'][$item])) {
                     throw new ValidatorException(sprintf('Empty required item: %s', $item));
                 }
