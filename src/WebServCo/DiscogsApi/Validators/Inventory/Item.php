@@ -81,7 +81,12 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         if (!empty($data['original_shipping_price'])) {
-            foreach (['curr_abbr', 'curr_id', 'formatted', 'value'] as $item) {
+            foreach (['value'] as $item) {
+                if (!isset($data['original_shipping_price'][$item])) {
+                    throw new ValidatorException(sprintf('Missing required item: %s', $item));
+                }
+            }
+            foreach (['curr_abbr', 'curr_id', 'formatted'] as $item) {
                 if (empty($data['original_shipping_price'][$item])) {
                     throw new ValidatorException(sprintf('Empty required item: %s', $item));
                 }
