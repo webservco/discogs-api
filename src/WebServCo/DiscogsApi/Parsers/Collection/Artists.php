@@ -11,7 +11,17 @@ final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
             $result .= !empty($data[$i]['anv']) ? $data[$i]['anv'] : $data[$i]['name'];
             $next = $i + 1;
             if (array_key_exists($next, $data)) {
-                $result .= " {$data[$i]['join']} ";
+                switch ($data[$i]['join']) {
+                    case ',':
+                        // special case: no space between artist and join
+                        $pre = '';
+                        break;
+                    default: // eg: ",", "featuring"
+                        // default: space between artist and join
+                        $pre = ' ';
+                        break;
+                }
+                $result .= sprintf("%s%s ", $pre, $data[$i]['join']);
             }
         }
         return $result;
