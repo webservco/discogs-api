@@ -7,10 +7,7 @@ final class Name
 
     public function __construct($prefixes = [])
     {
-        $this->prefixes = $prefixes ? $prefixes : [
-            'the',
-            'los',
-        ];
+        $this->prefixes = $prefixes ? $prefixes : [];
     }
 
     public function removeNumbering($data)
