@@ -5,11 +5,14 @@ use WebServCo\DiscogsApi\Exceptions\ApiResponseException;
 
 final class ApiResponse extends \WebServCo\Api\AbstractResponse
 {
-    protected $endpoint;
+    protected string $endpoint;
+    /**
+    * @var mixed
+    */
     protected $data;
-    protected $method;
-    protected $response; // \WebServCo\Framework\Http\Response
-    protected $status;
+    protected string $method;
+    protected \WebServCo\Framework\Http\Response $response;
+    protected int $status;
 
     public function getErrorMessage()
     {
