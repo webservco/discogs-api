@@ -21,7 +21,7 @@ final class ApiHelper
             $requestLibrary
         );
 
-        $browser = new \WebServCo\Framework\CurlBrowser($browserLogger);
+        $browser = new \WebServCo\Framework\Http\CurlClient($browserLogger);
 
         $throttle = new RateLimiter($tmpPath);
 

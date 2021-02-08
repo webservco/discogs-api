@@ -15,7 +15,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 
     public function __construct(
         AuthInterface $authInterface,
-        \WebServCo\Framework\Interfaces\HttpBrowserInterface $httpBrowserInterface,
+        \WebServCo\Framework\Interfaces\HttpClientInterface $httpBrowserInterface,
         \WebServCo\Framework\Interfaces\LoggerInterface $loggerInterface,
         \WebServCo\DiscogsApi\Interfaces\ThrottleInterface $throttleInterface,
         Settings $settings
