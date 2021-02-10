@@ -6,9 +6,10 @@ use WebServCo\DiscogsApi\Exceptions\ValidatorException;
 
 final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
 {
+
     public function validate($data)
     {
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             throw new ValidatorException('Invalid data type');
         }
         foreach ([
@@ -21,10 +22,10 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'date_changed',
             'uri',
             'resource_url',
-            'image_url'
+            'image_url',
             ] as $item) {
-            if (!array_key_exists($item, $data)) {
-                throw new ValidatorException(sprintf('Missing required item: %s', $item));
+            if (!\array_key_exists($item, $data)) {
+                throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
         foreach ([
@@ -33,20 +34,20 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'date_added',
             'date_changed',
             'uri',
-            'resource_url'
+            'resource_url',
             ] as $item) {
             if (empty($data[$item])) {
-                throw new ValidatorException(sprintf('Empty required item: %s', $item));
+                throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
         foreach (['id', 'avatar_url', 'username', 'resource_url'] as $item) {
-            if (!array_key_exists($item, $data['user'])) {
-                throw new ValidatorException(sprintf('Missing required item: %s', $item));
+            if (!\array_key_exists($item, $data['user'])) {
+                throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
         foreach (['id', 'username', 'resource_url'] as $item) {
             if (empty($data['user'][$item])) {
-                throw new ValidatorException(sprintf('Empty required item: %s', $item));
+                throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
 

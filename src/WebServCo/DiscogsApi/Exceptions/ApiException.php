@@ -4,9 +4,10 @@ namespace WebServCo\DiscogsApi\Exceptions;
 
 class ApiException extends \WebServCo\Framework\Exceptions\ApplicationException
 {
+
     const CODE = 0;
 
-    public function __construct($message, \Exception $previous = null)
+    public function __construct($message, ?\Throwable $previous = null)
     {
         parent::__construct($message, self::CODE, $previous);
     }

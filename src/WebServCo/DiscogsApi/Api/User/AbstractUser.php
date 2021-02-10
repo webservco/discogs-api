@@ -4,6 +4,7 @@ namespace WebServCo\DiscogsApi\Api\User;
 
 abstract class AbstractUser
 {
+
     protected $api;
     protected $username;
 

@@ -7,11 +7,12 @@ use WebServCo\Framework\Http\Response;
 
 final class ApiResponse extends \WebServCo\Api\AbstractResponse
 {
+
     protected string $endpoint;
 
     /**
-    * @var mixed
-    */
+     * @var mixed
+     */
     protected $data;
 
     protected string $method;
@@ -22,7 +23,7 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
 
     public function getErrorMessage(): string
     {
-        if (in_array($this->status, [200, 201, 204])) {
+        if (\in_array($this->status, [200, 201, 204])) {
             return ''; // no error
         }
 
@@ -33,7 +34,7 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
             return $this->data['message'];
         }
         if (!empty($this->data)) {
-            return strval($this->data);
+            return \strval($this->data);
         }
         return ApiResponseException::DEFAULT_MESSAGE;
     }

@@ -8,6 +8,7 @@ use WebServCo\Framework\Http\Method;
 
 final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 {
+
     protected $authInterface;
     protected $httpBrowserInterface;
     protected $loggerInterface;
@@ -46,9 +47,19 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         return $this->call($endpoint, Method::POST, $data);
     }
 
+    public function setAuthInterface(AuthInterface $authInterface): void
+    {
+        $this->authInterface = $authInterface;
+    }
+
+    public function setting($setting)
+    {
+        return $this->settings->get($setting);
+    }
+
     protected function call($endpoint, $method, $data = null)
     {
-        $url = sprintf('%s%s', Url::API, $endpoint);
+        $url = \sprintf('%s%s', Url::API, $endpoint);
         if ($this->setting('rateLimiting')) {
             $this->throttleInterface->throttle();
         }
@@ -57,8 +68,8 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                 break;
             case Method::POST:
                 if (!empty($data)) {
-                    if (is_array($data)) {
-                        $data = json_encode($data);
+                    if (\is_array($data)) {
+                        $data = \json_encode($data);
                     }
                     $this->httpBrowserInterface->setRequestContentType('application/json');
                     $this->httpBrowserInterface->setRequestData($data);
@@ -71,16 +82,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         $this->setAuthorizationHeader();
         $response = $this->httpBrowserInterface->retrieve($url); // \WebServCo\Framework\Http\Response
         return $this->processResponse($endpoint, $method, $response);
-    }
-
-    public function setAuthInterface(AuthInterface $authInterface)
-    {
-        $this->authInterface = $authInterface;
-    }
-
-    public function setting($setting)
-    {
-        return $this->settings->get($setting);
     }
 
     protected function processResponse($endpoint, $method, \WebServCo\Framework\Http\Response $response)
@@ -106,7 +107,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     * @link https://www.discogs.com/developers/#page:authentication
     * @return void
     */
-    protected function setAuthorizationHeader()
+    protected function setAuthorizationHeader(): void
     {
         $this->httpBrowserInterface->setRequestHeader('Authorization', $this->authInterface->getAuthHeader());
     }
@@ -116,7 +117,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     * @link https://www.discogs.com/developers/#page:home,header:home-versioning-and-media-types
     * @return void
     */
-    protected function setAcceptHeader()
+    protected function setAcceptHeader(): void
     {
         $this->httpBrowserInterface->setRequestHeader('Accept', \WebServCo\DiscogsApi\Versioning\V2\Accept::DISCOGS);
     }
@@ -126,7 +127,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     * @link https://www.discogs.com/developers/#page:home,header:home-general-information
     * @return void
     */
-    protected function setUserAgentHeader()
+    protected function setUserAgentHeader(): void
     {
         $this->httpBrowserInterface->setRequestHeader('User-Agent', $this->setting('userAgent'));
     }

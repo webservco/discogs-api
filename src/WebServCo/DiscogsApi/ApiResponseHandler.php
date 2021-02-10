@@ -4,6 +4,7 @@ namespace WebServCo\DiscogsApi;
 
 final class ApiResponseHandler
 {
+
     protected $apiResponse;
 
     public function __construct(ApiResponse $apiResponse)
@@ -74,9 +75,7 @@ final class ApiResponseHandler
                 */
             default:
                 $message = $this->apiResponse->getErrorMessage();
-                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException(
-                    $message
-                );
+                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException($message);
         }
     }
 }

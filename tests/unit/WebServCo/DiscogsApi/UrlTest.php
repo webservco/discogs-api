@@ -7,10 +7,11 @@ use WebServCo\DiscogsApi\Url;
 
 final class UrlTest extends TestCase
 {
+
     /**
      * @test
      */
-    public function apiUrlMatches()
+    public function apiUrlMatches(): void
     {
         $this->assertEquals(Url::API, 'https://api.discogs.com/');
     }
@@ -18,7 +19,7 @@ final class UrlTest extends TestCase
     /**
      * @test
      */
-    public function webUrlMatches()
+    public function webUrlMatches(): void
     {
         $this->assertEquals(Url::WEB, 'https://www.discogs.com/');
     }
