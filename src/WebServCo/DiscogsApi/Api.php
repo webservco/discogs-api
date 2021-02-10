@@ -34,7 +34,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 
         /* code below requires settings, browser */
 
-        $this->httpClientInterface->setDebug($this->setting('debug'));
+        $this->httpClientInterface->setDebug((bool) $this->setting('debug'));
         $this->setUserAgentHeader();
         $this->setAcceptHeader();
 
@@ -139,6 +139,6 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     */
     protected function setUserAgentHeader(): void
     {
-        $this->httpClientInterface->setRequestHeader('User-Agent', $this->setting('userAgent'));
+        $this->httpClientInterface->setRequestHeader('User-Agent', (string) $this->setting('userAgent'));
     }
 }

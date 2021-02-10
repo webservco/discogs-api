@@ -35,6 +35,6 @@ final class Name
             $patterns[] = \sprintf('/^%s /i', $item);
         }
 
-        return \preg_replace($patterns, '', $data);
+        return (string) \preg_replace($patterns, '', $data);
     }
 }
