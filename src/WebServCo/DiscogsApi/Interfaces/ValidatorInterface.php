@@ -8,5 +8,5 @@ interface ValidatorInterface
     /**
     * @param array<int|string,mixed> $data
     */
-    public function validate(array $data);
+    public function validate(array $data): bool;
 }

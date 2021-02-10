@@ -8,5 +8,5 @@ interface ParserInterface
     /**
     * @param array<int|string,mixed> $data
     */
-    public static function parse(array $data);
+    public static function parse(array $data): string;
 }

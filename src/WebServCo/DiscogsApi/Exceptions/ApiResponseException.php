@@ -5,11 +5,11 @@ namespace WebServCo\DiscogsApi\Exceptions;
 class ApiResponseException extends \WebServCo\Framework\Exceptions\ApplicationException
 {
 
-    const CODE = 0;
+    public const CODE = 0;
 
-    const DEFAULT_MESSAGE = 'Discogs Api Error';
+    public const DEFAULT_MESSAGE = 'Discogs Api Error';
 
-    public function __construct($message, ?\Throwable $previous = null)
+    public function __construct(string $message, ?\Throwable $previous = null)
     {
         parent::__construct($message, self::CODE, $previous);
     }

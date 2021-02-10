@@ -2,7 +2,7 @@
 
 namespace WebServCo\DiscogsApi\Interfaces;
 
-use \WebServCo\DiscogsApi\ApiResponse;
+use WebServCo\DiscogsApi\ApiResponse;
 
 interface ApiInterface
 {
