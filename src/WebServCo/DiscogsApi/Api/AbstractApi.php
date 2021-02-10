@@ -2,12 +2,14 @@
 
 namespace WebServCo\DiscogsApi\Api;
 
+use WebServCo\DiscogsApi\Interfaces\ApiInterface;
+
 abstract class AbstractApi
 {
 
-    protected $api;
+    protected ApiInterface $api;
 
-    public function __construct(\WebServCo\DiscogsApi\Interfaces\ApiInterface $api)
+    public function __construct(ApiInterface $api)
     {
         $this->api = $api;
     }

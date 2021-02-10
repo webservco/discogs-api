@@ -5,11 +5,11 @@ namespace WebServCo\DiscogsApi\Parsers\Collection;
 final class FormatDescriptions implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
 
-    public static function parse($data)
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public static function parse(array $data): string
     {
-        if (\is_array($data)) {
-            return \implode(', ', $data);
-        }
-        return null;
+        return \implode(', ', $data);
     }
 }

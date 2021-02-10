@@ -2,10 +2,15 @@
 
 namespace WebServCo\DiscogsApi;
 
+use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
+
 final class ApiHelper
 {
 
-    public static function init($apiConfig, $logPath, $tmpPath)
+    /**
+    * @param array<string,mixed> $apiConfig
+    */
+    public static function init(array $apiConfig, string $logPath, string $tmpPath): Api
     {
         $authLibrary = self::initAuthLibrary($apiConfig);
 
@@ -24,7 +29,10 @@ final class ApiHelper
         return new Api($authLibrary, $browser, $logger, $throttle, $settings);
     }
 
-    protected static function initAuthLibrary($apiConfig)
+    /**
+    * @param array<string,mixed> $apiConfig
+    */
+    protected static function initAuthLibrary(array $apiConfig): AuthInterface
     {
         if (empty($apiConfig['auth']['type'])) {
             throw new \InvalidArgumentException('Missing or invalid parameter: auth type');
@@ -41,7 +49,10 @@ final class ApiHelper
         }
     }
 
-    protected static function initAppAuthLibrary($authConfig)
+    /**
+    * @param array<string,mixed> $authConfig
+    */
+    protected static function initAppAuthLibrary(array $authConfig): AuthInterface
     {
         foreach (['consumerKey', 'consumerSecret'] as $item) {
             if (empty($authConfig['app'][$item])) {
@@ -54,7 +65,10 @@ final class ApiHelper
         );
     }
 
-    protected static function initOauthAuthLibrary($authConfig)
+    /**
+    * @param array<string,mixed> $authConfig
+    */
+    protected static function initOauthAuthLibrary(array $authConfig): AuthInterface
     {
         foreach (['consumerKey', 'consumerSecret'] as $item) {
             if (empty($authConfig['app'][$item])) {
@@ -75,7 +89,10 @@ final class ApiHelper
         );
     }
 
-    protected static function initUserAuthLibrary($authConfig)
+    /**
+    * @param array<string,mixed> $authConfig
+    */
+    protected static function initUserAuthLibrary(array $authConfig): AuthInterface
     {
         if (empty($authConfig['user']['personalAccessToken'])) {
             throw new \InvalidArgumentException('Missing or invalid parameter: personalAccessToken');
@@ -83,16 +100,18 @@ final class ApiHelper
         return new \WebServCo\DiscogsAuth\Discogs\User($authConfig['user']['personalAccessToken']);
     }
 
-    protected static function initSettings($apiConfig)
+    /**
+    * @param array<string,mixed> $apiConfig
+    */
+    protected static function initSettings($apiConfig): Settings
     {
-        foreach (['debug', 'handleResponse', 'rateLimiting', 'userAgent'] as $item) {
+        foreach (['debug', 'rateLimiting', 'userAgent'] as $item) {
             if (!isset($apiConfig['settings'][$item])) {
                 throw new \InvalidArgumentException(\sprintf('Missing or invalid parameter: %s', $item));
             }
         }
         return new Settings(
             $apiConfig['settings']['debug'],
-            $apiConfig['settings']['handleResponse'],
             $apiConfig['settings']['rateLimiting'],
             $apiConfig['settings']['userAgent']
         );

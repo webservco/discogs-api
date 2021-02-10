@@ -5,9 +5,12 @@ namespace WebServCo\DiscogsApi\Parsers\Collection;
 final class Labels implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
 
-    public static function parse($data)
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public static function parse(array $data): string
     {
-        $result = null;
+        $result = '';
         $labels = [];
         if (\is_array($data)) {
             foreach ($data as $item) {

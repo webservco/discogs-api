@@ -5,6 +5,6 @@ namespace WebServCo\DiscogsApi;
 class Url
 {
 
-    const API = 'https://api.discogs.com/';
-    const WEB = 'https://www.discogs.com/';
+    public const API = 'https://api.discogs.com/';
+    public const WEB = 'https://www.discogs.com/';
 }

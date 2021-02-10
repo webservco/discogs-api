@@ -4,20 +4,28 @@ namespace WebServCo\DiscogsApi\Utilities;
 
 final class Name
 {
-    protected $prefixes;
+    /**
+    * Prefixes.
+    *
+    * @var array<int,string>
+    */
+    protected array $prefixes;
 
-    public function __construct($prefixes = [])
+    /**
+    * @param array<int,string> $prefixes
+    */
+    public function __construct(array $prefixes = [])
     {
         $this->prefixes = $prefixes ? $prefixes : [];
     }
 
-    public function removeNumbering($data)
+    public function removeNumbering(string $data): string
     {
-        $result = preg_replace('/\([0-9]+\)/', '', (string) $data); // remove numbering
+        $result = preg_replace('/\([0-9]+\)/', '', $data); // remove numbering
         return trim((string) $result);
     }
 
-    public function removePrefixes($data)
+    public function removePrefixes(string $data): string
     {
         $patterns = [];
         foreach ($this->prefixes as $item) {

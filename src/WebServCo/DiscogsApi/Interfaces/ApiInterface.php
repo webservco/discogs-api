@@ -2,10 +2,15 @@
 
 namespace WebServCo\DiscogsApi\Interfaces;
 
+use \WebServCo\DiscogsApi\ApiResponse;
+
 interface ApiInterface
 {
 
-    public function get($endpoint);
+    public function get(string $endpoint): ApiResponse;
 
-    public function post($endpoint, $data = null);
+    /**
+    * @param mixed $data
+    */
+    public function post(string $endpoint, $data = null): ApiResponse;
 }

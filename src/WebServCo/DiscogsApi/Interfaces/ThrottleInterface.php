@@ -5,7 +5,7 @@ namespace WebServCo\DiscogsApi\Interfaces;
 interface ThrottleInterface
 {
 
-    public function set($value);
+    public function set(int $value): void;
 
-    public function throttle();
+    public function throttle(): bool;
 }

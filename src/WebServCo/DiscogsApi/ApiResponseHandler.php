@@ -5,14 +5,14 @@ namespace WebServCo\DiscogsApi;
 final class ApiResponseHandler
 {
 
-    protected $apiResponse;
+    protected ApiResponse $apiResponse;
 
     public function __construct(ApiResponse $apiResponse)
     {
         $this->apiResponse = $apiResponse;
     }
 
-    public function handle()
+    public function handle(): ApiResponse
     {
         $responseStatus = $this->apiResponse->getStatus();
         switch ($responseStatus) {
@@ -74,8 +74,7 @@ final class ApiResponseHandler
                 * (which will help us track down your specific issue).
                 */
             default:
-                $message = $this->apiResponse->getErrorMessage();
-                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException($message);
+                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException($this->apiResponse->getErrorMessage());
         }
     }
 }

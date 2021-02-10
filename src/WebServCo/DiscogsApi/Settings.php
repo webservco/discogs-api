@@ -5,20 +5,21 @@ namespace WebServCo\DiscogsApi;
 final class Settings
 {
 
-    protected $debug;
-    protected $handleResponse;
-    protected $rateLimiting;
-    protected $userAgent;
+    protected bool $debug;
+    protected bool $rateLimiting;
+    protected string $userAgent;
 
-    public function __construct($debug, $handleResponse, $rateLimiting, $userAgent)
+    public function __construct(bool $debug, bool $rateLimiting, string $userAgent)
     {
-        $this->debug = (bool) $debug;
-        $this->handleResponse = (bool) $handleResponse;
+        $this->debug = $debug;
         $this->rateLimiting = $rateLimiting;
         $this->userAgent = $userAgent;
     }
 
-    public function get($setting)
+    /**
+    * @return bool|string
+    */
+    public function get(string $setting)
     {
         if (!\property_exists($this, $setting)) {
             throw new \InvalidArgumentException('Invalid parameter specified');

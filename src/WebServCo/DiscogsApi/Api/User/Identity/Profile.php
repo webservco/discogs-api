@@ -5,7 +5,7 @@ namespace WebServCo\DiscogsApi\Api\User\Identity;
 final class Profile extends \WebServCo\DiscogsApi\Api\User\AbstractUser
 {
 
-    public function get()
+    public function get(): \WebServCo\DiscogsApi\ApiResponse
     {
         return $this->api->get(\sprintf('users/%s', $this->username));
     }

@@ -5,5 +5,8 @@ namespace WebServCo\DiscogsApi\Interfaces;
 interface ParserInterface
 {
 
-    public static function parse($data);
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public static function parse(array $data);
 }

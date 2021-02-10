@@ -5,5 +5,8 @@ namespace WebServCo\DiscogsApi\Interfaces;
 interface ValidatorInterface
 {
 
-    public function validate($data);
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public function validate(array $data);
 }

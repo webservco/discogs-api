@@ -5,9 +5,12 @@ namespace WebServCo\DiscogsApi\Parsers\Collection;
 final class Format implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
 
-    public static function parse($data)
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public static function parse(array $data): string
     {
-        $result = null;
+        $result = '';
         if (isset($data['qty']) && $data['qty'] > 1) {
             $result .= \sprintf('%s x ', $data['qty']);
         }

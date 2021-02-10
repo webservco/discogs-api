@@ -27,7 +27,6 @@
         ],
         'settings' => [
             'debug' => true,
-            'handleResponse' => true,
             'rateLimiting' => true,
             'userAgent' => '',
         ],

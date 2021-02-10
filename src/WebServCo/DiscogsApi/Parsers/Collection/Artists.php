@@ -5,9 +5,12 @@ namespace WebServCo\DiscogsApi\Parsers\Collection;
 final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
 
-    public static function parse($data)
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public static function parse(array $data): string
     {
-        $result = null;
+        $result = '';
         $items = \count($data);
         for ($i = 0; $i < $items; $i++) {
             $result .= !empty($data[$i]['anv'])

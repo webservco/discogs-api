@@ -7,7 +7,10 @@ use WebServCo\DiscogsApi\Exceptions\ValidatorException;
 final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
 {
 
-    public function validate($data)
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public function validate(array $data)
     {
         if (!\is_array($data)) {
             throw new ValidatorException('Invalid data type');

@@ -7,9 +7,9 @@ use WebServCo\DiscogsApi\Exceptions\ApiException;
 final class RateLimiter implements \WebServCo\DiscogsApi\Interfaces\ThrottleInterface
 {
 
-    protected $filePath;
+    protected string $filePath;
 
-    public function __construct($workDir)
+    public function __construct(string $workDir)
     {
         if (!\is_readable($workDir)) {
             throw new ApiException('Work directory not readable');
@@ -27,17 +27,17 @@ final class RateLimiter implements \WebServCo\DiscogsApi\Interfaces\ThrottleInte
         $this->filePath = $filePath;
     }
 
-    public function get()
+    public function get(): int
     {
         return (int) \file_get_contents($this->filePath);
     }
 
-    public function set($value): void
+    public function set(int $value): void
     {
         \file_put_contents($this->filePath, $value);
     }
 
-    public function throttle()
+    public function throttle(): bool
     {
         $value = $this->get();
 
