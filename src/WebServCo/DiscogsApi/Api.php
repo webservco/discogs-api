@@ -41,12 +41,15 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         $this->setAuthInterface($authInterface);
     }
 
-    public function get($endpoint): ApiResponse
+    public function get(string $endpoint): ApiResponse
     {
         return $this->call($endpoint, Method::GET);
     }
 
-    public function post($endpoint, $data = null): ApiResponse
+    /**
+    * @param mixed $data
+    */
+    public function post(string $endpoint, $data = null): ApiResponse
     {
         return $this->call($endpoint, Method::POST, $data);
     }
@@ -59,7 +62,7 @@ final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     /**
     * @return bool|string
     */
-    public function setting($setting)
+    public function setting(string $setting)
     {
         return $this->settings->get($setting);
     }

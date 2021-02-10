@@ -11,6 +11,8 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
     protected string $endpoint;
 
     /**
+     * Data
+     *
      * @var mixed
      */
     protected $data;
@@ -23,7 +25,7 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
 
     public function getErrorMessage(): string
     {
-        if (\in_array($this->status, [200, 201, 204])) {
+        if (\in_array($this->status, [200, 201, 204], true)) {
             return ''; // no error
         }
 
