@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
 final class CatNo implements \WebServCo\DiscogsApi\Interfaces\ParserInterface

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace WebServCo\DiscogsApi\Validators\Lists;
 
 use WebServCo\DiscogsApi\Exceptions\ValidatorException;

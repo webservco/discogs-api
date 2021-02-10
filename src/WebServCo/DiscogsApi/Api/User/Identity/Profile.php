@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace WebServCo\DiscogsApi\Api\User\Identity;
 
 final class Profile extends \WebServCo\DiscogsApi\Api\User\AbstractUser

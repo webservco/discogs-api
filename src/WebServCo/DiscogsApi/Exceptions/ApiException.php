@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace WebServCo\DiscogsApi\Exceptions;
 
 class ApiException extends \WebServCo\Framework\Exceptions\ApplicationException
