@@ -103,7 +103,7 @@ final class ApiHelper
     /**
     * @param array<string,mixed> $apiConfig
     */
-    protected static function initSettings($apiConfig): Settings
+    protected static function initSettings(array $apiConfig): Settings
     {
         foreach (['debug', 'rateLimiting', 'userAgent'] as $item) {
             if (!isset($apiConfig['settings'][$item])) {

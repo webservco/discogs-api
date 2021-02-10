@@ -10,7 +10,7 @@ final class Note implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
     /**
     * @param array<int|string,mixed> $data
     */
-    public function validate(array $data)
+    public function validate(array $data): bool
     {
         if (!\is_array($data)) {
             throw new ValidatorException('Invalid data type');
