@@ -13,4 +13,6 @@ interface ApiInterface
     * @param mixed $data
     */
     public function post(string $endpoint, $data = null): ApiResponse;
+
+    public function setAuthInterface(\WebServCo\DiscogsAuth\Interfaces\AuthInterface $authInterface): void;
 }
