@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Validators\Wants;
 
@@ -30,8 +32,10 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
-        foreach ([
-            'resource_url', 'year', 'thumb', 'cover_image', 'genres', 'styles'] as $item) {
+        foreach (
+            [
+            'resource_url', 'year', 'thumb', 'cover_image', 'genres', 'styles'] as $item
+        ) {
             // Can be missing: 'master_id', 'master_url'
             if (!\array_key_exists($item, $data['basic_information'])) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));

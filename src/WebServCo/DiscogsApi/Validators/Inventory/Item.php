@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Validators\Inventory;
 
@@ -15,7 +17,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
         if (!\is_array($data)) {
             throw new ValidatorException('Invalid data type');
         }
-        foreach ([
+        foreach (
+            [
             'id',
             'resource_url',
             'uri',
@@ -39,12 +42,14 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'format_quantity',
             'external_id',
             'location',
-            ] as $item) {
+            ] as $item
+        ) {
             if (!\array_key_exists($item, $data)) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'id',
             'resource_url',
             'uri',
@@ -58,7 +63,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'seller',
             'release',
             // 'format_quantity', this can be empty (01.11.2020 SchusterBach)
-            ] as $item) {
+            ] as $item
+        ) {
             if (empty($data[$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
@@ -97,7 +103,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
                 }
             }
         }
-        foreach ([
+        foreach (
+            [
             'avatar_url',
             'html_url',
             'id',
@@ -109,7 +116,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'payment',
             'shipping',
             'resource_url',
-            ] as $item) {
+            ] as $item
+        ) {
             if (!\array_key_exists($item, $data['seller'])) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
@@ -124,7 +132,8 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'thumbnail',
             'description',
             'images',
@@ -136,12 +145,14 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'id',
             'catalog_number',
             'stats',
-            ] as $item) {
+            ] as $item
+        ) {
             if (!\array_key_exists($item, $data['release'])) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'artist',
             'format',
             'resource_url',
@@ -149,31 +160,38 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'id',
             'catalog_number',
             'stats',
-            ] as $item) {
+            ] as $item
+        ) {
             if (empty($data['release'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'community',
             'user',
-            ] as $item) {
+            ] as $item
+        ) {
             if (empty($data['release']['stats'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'in_wantlist',
             'in_collection',
-            ] as $item) {
+            ] as $item
+        ) {
             if (!\array_key_exists($item, $data['release']['stats']['community'])) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
         }
-        foreach ([
+        foreach (
+            [
             'in_wantlist',
             'in_collection',
-            ] as $item) {
+            ] as $item
+        ) {
             if (!\array_key_exists($item, $data['release']['stats']['user'])) {
                 throw new ValidatorException(\sprintf('Missing required item: %s', $item));
             }
