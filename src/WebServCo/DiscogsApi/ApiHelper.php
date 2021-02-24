@@ -16,11 +16,9 @@ final class ApiHelper
     {
         $authLibrary = self::initAuthLibrary($apiConfig);
 
-        $requestLibrary = \WebServCo\Framework\Framework::library('Request');
+        $logger = new \WebServCo\Framework\Log\FileLogger('DiscogsApi', $logPath);
 
-        $logger = new \WebServCo\Framework\Log\FileLogger('DiscogsApi', $logPath, $requestLibrary);
-
-        $browserLogger = new \WebServCo\Framework\Log\FileLogger('DiscogsApiBrowser', $logPath, $requestLibrary);
+        $browserLogger = new \WebServCo\Framework\Log\FileLogger('DiscogsApiBrowser', $logPath);
 
         $browser = new \WebServCo\Framework\Http\CurlClient($browserLogger);
 
