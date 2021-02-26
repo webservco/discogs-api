@@ -61,7 +61,7 @@ final class ApiHelper
         }
         return new \WebServCo\DiscogsAuth\Discogs\App(
             $authConfig['app']['consumerKey'],
-            $authConfig['app']['consumerSecret']
+            $authConfig['app']['consumerSecret'],
         );
     }
 
@@ -85,7 +85,7 @@ final class ApiHelper
             $authConfig['app']['consumerKey'],
             $authConfig['app']['consumerSecret'],
             $authConfig['oauth']['access']['oauthToken'],
-            $authConfig['oauth']['access']['oauthTokenSecret']
+            $authConfig['oauth']['access']['oauthTokenSecret'],
         );
     }
 
@@ -113,7 +113,7 @@ final class ApiHelper
         return new Settings(
             $apiConfig['settings']['debug'],
             $apiConfig['settings']['rateLimiting'],
-            $apiConfig['settings']['userAgent']
+            $apiConfig['settings']['userAgent'],
         );
     }
 }
