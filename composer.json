@@ -9,17 +9,10 @@
     "homepage" : "https://github.com/webservco/discogs-api",
     "license" : "MIT",
     "require": {
-<<<<<<< HEAD
-        "php" : "^7.1",
-        "webservco/framework" : "^9.79.0",
-        "webservco/api" : "^1",
-        "webservco/discogs-auth" : "^1"
-=======
         "php" : "^7.4",
         "webservco/framework" : "v10.x-dev",
         "webservco/api" : "v2.x-dev",
         "webservco/discogs-auth" : "v1.x-dev"
->>>>>>> v1
     },
     "require-dev" : {
         "pds/skeleton" : "^1.0",
