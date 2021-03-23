@@ -1,7 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsApi\Interfaces;
 
 interface ValidatorInterface
 {
-    public function validate($data);
+
+    /**
+    * @param array<int|string,mixed> $data
+    */
+    public function validate(array $data): bool;
 }

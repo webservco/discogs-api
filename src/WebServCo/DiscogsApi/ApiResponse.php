@@ -1,20 +1,34 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsApi;
 
 use WebServCo\DiscogsApi\Exceptions\ApiResponseException;
+use WebServCo\Framework\Http\Response;
 
 final class ApiResponse extends \WebServCo\Api\AbstractResponse
 {
-    protected $endpoint;
-    protected $data;
-    protected $method;
-    protected $response; // \WebServCo\Framework\Http\Response
-    protected $status;
 
-    public function getErrorMessage()
+    protected string $endpoint;
+
+    /**
+     * Data
+     *
+     * @var mixed
+     */
+    protected $data;
+
+    protected string $method;
+
+    protected Response $response; // \WebServCo\Framework\Http\Response
+
+    protected int $status;
+
+    public function getErrorMessage(): string
     {
-        if (in_array($this->status, [200, 201, 204])) {
-            return false; // no error
+        if (\in_array($this->status, [200, 201, 204], true)) {
+            return ''; // no error
         }
 
         if (isset($this->data['error'])) {
@@ -24,13 +38,13 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
             return $this->data['message'];
         }
         if (!empty($this->data)) {
-            return strval($this->data);
+            return \strval($this->data);
         }
         return ApiResponseException::DEFAULT_MESSAGE;
     }
 
-    public function getRateLimitRemaining()
+    public function getRateLimitRemaining(): int
     {
-        return (int) $this->response->getHeader('x-discogs-ratelimit-remaining');
+        return (int) $this->response->getHeaderLine('x-discogs-ratelimit-remaining');
     }
 }
