@@ -10,9 +10,9 @@
     "license" : "MIT",
     "require": {
         "php" : "^7.4",
-        "webservco/framework" : "^10",
-        "webservco/api" : "^2",
-        "webservco/discogs-auth" : "^2"
+        "webservco/framework" : "@dev",
+        "webservco/api" : "@dev",
+        "webservco/discogs-auth" : "@dev"
     },
     "require-dev" : {
         "pds/skeleton" : "^1.0",
