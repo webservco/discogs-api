@@ -11,8 +11,8 @@
     "require": {
         "php" : "^7.1",
         "webservco/framework" : "^9.79.0",
-        "webservco/api" : "@dev",
-        "webservco/discogs-auth" : "@dev"
+        "webservco/api" : "^1",
+        "webservco/discogs-auth" : "^1"
     },
     "require-dev" : {
         "phpunit/phpunit" : "~5"
