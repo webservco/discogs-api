@@ -14,7 +14,7 @@ final class CatNo implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
     {
         $result = '';
         if (isset($data['entity_type']) && isset($data['name'])) {
-            if (1 === $data['entity_type']) { // label
+            if (1 === (int) $data['entity_type']) { // label
                 if (!empty($data['catno'])) {
                     $result = $data['catno'];
                 }
