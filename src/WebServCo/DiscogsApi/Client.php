@@ -12,7 +12,7 @@ use WebServCo\Framework\Http\Response;
 use WebServCo\Framework\Interfaces\HttpClientInterface;
 use WebServCo\Framework\Interfaces\LoggerInterface;
 
-final class Api implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
+final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 {
 
     protected AuthInterface $authInterface;
