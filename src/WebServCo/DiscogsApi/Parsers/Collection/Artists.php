@@ -14,7 +14,7 @@ final class Artists implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
         $result = '';
         $items = \count($data);
         for ($i = 0; $i < $items; $i++) {
-            $result .= !\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data[$i]['anv'])
+            $result .= !empty($data[$i]['anv'])
                 ? $data[$i]['anv']
                 : $data[$i]['name'];
             $next = $i + 1;

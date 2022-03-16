@@ -18,7 +18,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
         }
 
         foreach (['id', 'name', 'position'] as $item) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data[$item])) {
+            if (empty($data[$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }

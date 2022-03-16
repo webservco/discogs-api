@@ -81,7 +81,7 @@ final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
             case Method::GET:
                 break;
             case Method::POST:
-                if ($data) {
+                if (!empty($data)) {
                     if (\is_array($data)) {
                         $data = \json_encode($data);
                     }

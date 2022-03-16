@@ -44,7 +44,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'resource_url',
             ] as $item
         ) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data[$item])) {
+            if (empty($data[$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
@@ -54,7 +54,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['id', 'username', 'resource_url'] as $item) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['user'][$item])) {
+            if (empty($data['user'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }

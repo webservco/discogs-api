@@ -64,42 +64,40 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             // 'format_quantity', this can be empty (01.11.2020 SchusterBach)
             ] as $item
         ) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data[$item])) {
+            if (empty($data[$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
         foreach (['value', 'currency'] as $item) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['price'][$item])) {
+            if (empty($data['price'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
         foreach (['curr_abbr', 'curr_id', 'formatted', 'value'] as $item) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['original_price'][$item])) {
+            if (empty($data['original_price'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
-        if (!\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['shipping_price'])) {
+        if (!empty($data['shipping_price'])) {
             foreach (['value'] as $item) {
                 if (!isset($data['shipping_price'][$item])) {
                     throw new ValidatorException(\sprintf('Missing required item: %s', $item));
                 }
             }
             foreach (['currency'] as $item) {
-                if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['shipping_price'][$item])) {
+                if (empty($data['shipping_price'][$item])) {
                     throw new ValidatorException(\sprintf('Empty required item: %s', $item));
                 }
             }
         }
-        if (!\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['original_shipping_price'])) {
+        if (!empty($data['original_shipping_price'])) {
             foreach (['value'] as $item) {
                 if (!isset($data['original_shipping_price'][$item])) {
                     throw new ValidatorException(\sprintf('Missing required item: %s', $item));
                 }
             }
             foreach (['curr_abbr', 'curr_id', 'formatted'] as $item) {
-                if (
-                    \WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['original_shipping_price'][$item])
-                ) {
+                if (empty($data['original_shipping_price'][$item])) {
                     throw new ValidatorException(\sprintf('Empty required item: %s', $item));
                 }
             }
@@ -124,7 +122,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['id', 'username'] as $item) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['seller'][$item])) {
+            if (empty($data['seller'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
@@ -163,7 +161,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'stats',
             ] as $item
         ) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['release'][$item])) {
+            if (empty($data['release'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
@@ -173,7 +171,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'user',
             ] as $item
         ) {
-            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['release']['stats'][$item])) {
+            if (empty($data['release']['stats'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
