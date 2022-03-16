@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi\Interfaces;
 
 interface ValidatorInterface
 {
-
     /**
     * @param array<int|string,mixed> $data
     */

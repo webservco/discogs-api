@@ -8,7 +8,6 @@ use WebServCo\DiscogsApi\Exceptions\ApiException;
 
 final class RateLimiter implements \WebServCo\DiscogsApi\Interfaces\ThrottleInterface
 {
-
     protected string $filePath;
 
     public function __construct(string $workDir)

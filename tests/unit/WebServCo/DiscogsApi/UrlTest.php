@@ -9,7 +9,6 @@ use WebServCo\DiscogsApi\Url;
 
 final class UrlTest extends TestCase
 {
-
     /**
      * @test
      */

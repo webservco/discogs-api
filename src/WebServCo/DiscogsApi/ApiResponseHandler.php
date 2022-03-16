@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi;
 
 final class ApiResponseHandler
 {
-
     protected ApiResponse $apiResponse;
 
     public function __construct(ApiResponse $apiResponse)

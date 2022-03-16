@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi;
 
 final class Settings
 {
-
     protected bool $debug;
     protected bool $rateLimiting;
     protected string $userAgent;

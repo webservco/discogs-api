@@ -8,7 +8,6 @@ use WebServCo\DiscogsApi\Exceptions\ValidatorException;
 
 final class Note implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
 {
-
     /**
     * @param array<int|string,mixed> $data
     */

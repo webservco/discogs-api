@@ -9,7 +9,6 @@ use WebServCo\Framework\Http\Response;
 
 final class ApiResponse extends \WebServCo\Api\AbstractResponse
 {
-
     protected string $endpoint;
 
     /**

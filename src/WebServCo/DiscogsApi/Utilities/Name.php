@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi\Utilities;
 
 final class Name
 {
-
     /**
     * Prefixes.
     *

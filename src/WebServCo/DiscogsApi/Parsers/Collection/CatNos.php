@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi\Parsers\Collection;
 
 final class CatNos implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
 {
-
     /**
     * @param array<int|string,mixed> $data
     */

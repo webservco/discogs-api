@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi\Interfaces;
 
 interface ParserInterface
 {
-
     /**
     * @param array<int|string,mixed> $data
     */

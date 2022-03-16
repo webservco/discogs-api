@@ -8,7 +8,6 @@ use WebServCo\DiscogsApi\Interfaces\ApiInterface;
 
 abstract class AbstractApi
 {
-
     protected ApiInterface $api;
 
     public function __construct(ApiInterface $api)

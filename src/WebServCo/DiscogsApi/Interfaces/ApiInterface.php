@@ -8,7 +8,6 @@ use WebServCo\DiscogsApi\ApiResponse;
 
 interface ApiInterface
 {
-
     public function get(string $endpoint): ApiResponse;
 
     /**

@@ -6,7 +6,6 @@ namespace WebServCo\DiscogsApi\Exceptions;
 
 class ApiResponseException extends \WebServCo\Framework\Exceptions\ApplicationException
 {
-
     public const CODE = 0;
 
     public const DEFAULT_MESSAGE = 'Discogs Api Error';

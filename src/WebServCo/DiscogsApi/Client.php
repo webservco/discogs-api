@@ -14,7 +14,6 @@ use WebServCo\Framework\Interfaces\LoggerInterface;
 
 final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
 {
-
     protected AuthInterface $authInterface;
     protected HttpClientInterface $httpClientInterface;
     protected LoggerInterface $loggerInterface;
