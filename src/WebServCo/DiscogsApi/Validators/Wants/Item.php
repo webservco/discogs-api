@@ -17,7 +17,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             throw new ValidatorException('Invalid data type');
         }
         foreach (['id', 'resource_url', 'date_added', 'basic_information'] as $item) {
-            if (empty($data[$item])) {
+            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data[$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
@@ -27,7 +27,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             }
         }
         foreach (['id', 'title', 'formats', 'labels', 'artists'] as $item) {
-            if (empty($data['basic_information'][$item])) {
+            if (\WebServCo\Framework\Helpers\StringHelper::isEmpty((string) $data['basic_information'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }

@@ -36,7 +36,7 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
         if (isset($this->data['message'])) {
             return $this->data['message'];
         }
-        if (!empty($this->data)) {
+        if ($this->data) {
             return \strval($this->data);
         }
         return ApiResponseException::DEFAULT_MESSAGE;
