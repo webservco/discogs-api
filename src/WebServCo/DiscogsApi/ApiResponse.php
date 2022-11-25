@@ -11,12 +11,7 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
 {
     protected string $endpoint;
 
-    /**
-     * Data
-     *
-     * @var mixed
-     */
-    protected $data;
+    protected mixed $data;
 
     protected string $method;
 
