@@ -17,6 +17,8 @@ final class Labels implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
             foreach ($data as $item) {
                 $labels[] = \WebServCo\DiscogsApi\Parsers\Collection\Label::parse($item);
             }
+            // Remove duplicates (same label can appear multiple times on the same release).
+            $labels = array_unique($labels);
             $result = \implode(', ', $labels);
         }
         return $result;
