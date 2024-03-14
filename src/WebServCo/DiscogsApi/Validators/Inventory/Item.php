@@ -54,7 +54,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'uri',
             'status',
             'condition',
-            'sleeve_condition',
+            // 'sleeve_condition', this can be empty (seen in the wild)
             'ships_from',
             'posted',
             'price',
