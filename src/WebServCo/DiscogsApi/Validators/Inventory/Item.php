@@ -160,7 +160,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'catalog_number',
             ] as $item
         ) {
-            if (empty($data['release'][$item])) {
+            if ('' === (string) $data['release'][$item]) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
@@ -170,7 +170,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'stats',
             ] as $item
         ) {
-            if (!is_array($data['release'][$item]) || $data['release'][$item] === []) {
+            if (!\is_array($data['release'][$item]) || [] === $data['release'][$item]) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
