@@ -158,13 +158,23 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'title',
             'id',
             'catalog_number',
-            'stats',
             ] as $item
         ) {
             if (empty($data['release'][$item])) {
                 throw new ValidatorException(\sprintf('Empty required item: %s', $item));
             }
         }
+
+        foreach (
+            [
+            'stats',
+            ] as $item
+        ) {
+            if (!is_array($data['release'][$item]) || $data['release'][$item] === []) {
+                throw new ValidatorException(\sprintf('Empty required item: %s', $item));
+            }
+        }
+
         foreach (
             [
             'community',
