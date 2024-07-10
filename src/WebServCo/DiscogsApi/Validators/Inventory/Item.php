@@ -53,7 +53,7 @@ final class Item implements \WebServCo\DiscogsApi\Interfaces\ValidatorInterface
             'resource_url',
             'uri',
             'status',
-            'condition',
+            // 'condition', despite being required, it can be empty (seen "0" in the wild on old releases)
             // 'sleeve_condition', this can be empty (seen in the wild)
             'ships_from',
             'posted',
