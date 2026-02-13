@@ -19,7 +19,7 @@ final class Artists implements ParserInterface
     {
         $result = '';
         $items = count($data);
-        for ($i = 0; $i < $items; $i++) {
+        for ($i = 0; $i < $items; $i += 1) {
             $result .= !empty($data[$i]['anv'])
                 ? $data[$i]['anv']
                 : $data[$i]['name'];
