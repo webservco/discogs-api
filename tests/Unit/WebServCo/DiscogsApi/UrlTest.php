@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\DiscogsApi;
+namespace Tests\Unit\WebServCo\DiscogsApi;
 
 use PHPUnit\Framework\TestCase;
 use WebServCo\DiscogsApi\Url;
