@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
-final class Formats implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
+use WebServCo\DiscogsApi\Interfaces\ParserInterface;
+
+use function implode;
+use function is_array;
+
+final class Formats implements ParserInterface
 {
     /**
     * @param array<int|string,mixed> $data
@@ -13,12 +18,13 @@ final class Formats implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
     {
         $result = '';
         $formats = [];
-        if (\is_array($data)) {
+        if (is_array($data)) {
             foreach ($data as $item) {
-                $formats[] = \WebServCo\DiscogsApi\Parsers\Collection\Format::parse($item);
+                $formats[] = Format::parse($item);
             }
-            $result = \implode(' + ', $formats);
+            $result = implode(' + ', $formats);
         }
+
         return $result;
     }
 }

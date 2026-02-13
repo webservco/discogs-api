@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace WebServCo\DiscogsApi\Interfaces;
 
 use WebServCo\DiscogsApi\ApiResponse;
+use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
 
 interface ApiInterface
 {
     public function get(string $endpoint): ApiResponse;
 
-    /**
-    * @param mixed $data
-    */
-    public function post(string $endpoint, $data = null): ApiResponse;
+    public function post(string $endpoint, mixed $data = null): ApiResponse;
 
-    public function setAuthInterface(\WebServCo\DiscogsAuth\Interfaces\AuthInterface $authInterface): void;
+    public function setAuthInterface(AuthInterface $authInterface): void;
 }

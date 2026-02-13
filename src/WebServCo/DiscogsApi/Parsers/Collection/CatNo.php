@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
-final class CatNo implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
+use WebServCo\DiscogsApi\Interfaces\ParserInterface;
+
+final class CatNo implements ParserInterface
 {
     /**
     * @param array<int|string,mixed> $data
@@ -13,12 +15,14 @@ final class CatNo implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
     {
         $result = '';
         if (isset($data['entity_type']) && isset($data['name'])) {
-            if (1 === (int) $data['entity_type']) { // label
+            // label
+            if ((int) $data['entity_type'] === 1) {
                 if (!empty($data['catno'])) {
                     $result = $data['catno'];
                 }
             }
         }
+
         return $result;
     }
 }

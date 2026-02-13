@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Api\OAuth;
 
-final class Identity extends \WebServCo\DiscogsApi\Api\AbstractApi
+use WebServCo\DiscogsApi\Api\AbstractApi;
+use WebServCo\DiscogsApi\ApiResponse;
+
+final class Identity extends AbstractApi
 {
-    public function get(): \WebServCo\DiscogsApi\ApiResponse
+    public function get(): ApiResponse
     {
         return $this->api->get('oauth/identity');
     }

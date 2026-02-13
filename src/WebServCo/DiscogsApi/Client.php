@@ -5,33 +5,31 @@ declare(strict_types=1);
 namespace WebServCo\DiscogsApi;
 
 use WebServCo\DiscogsApi\Exceptions\ApiException;
+use WebServCo\DiscogsApi\Interfaces\ApiInterface;
 use WebServCo\DiscogsApi\Interfaces\ThrottleInterface;
+use WebServCo\DiscogsApi\Versioning\V2\Accept;
 use WebServCo\DiscogsAuth\Interfaces\AuthInterface;
 use WebServCo\Framework\Http\Method;
 use WebServCo\Framework\Http\Response;
 use WebServCo\Framework\Interfaces\HttpClientInterface;
 use WebServCo\Framework\Interfaces\LoggerInterface;
 
-final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
+use function is_array;
+use function json_encode;
+use function sprintf;
+
+final class Client implements ApiInterface
 {
     protected AuthInterface $authInterface;
-    protected HttpClientInterface $httpClientInterface;
-    protected LoggerInterface $loggerInterface;
-    protected ThrottleInterface $throttleInterface;
-    protected Settings $settings;
 
     public function __construct(
         AuthInterface $authInterface,
-        HttpClientInterface $httpClientInterface,
-        LoggerInterface $loggerInterface,
-        ThrottleInterface $throttleInterface,
-        Settings $settings
+        protected HttpClientInterface $httpClientInterface,
+        protected LoggerInterface $loggerInterface,
+        protected ThrottleInterface $throttleInterface,
+        protected Settings $settings,
     ) {
-        $this->settings = $settings;
 
-        $this->httpClientInterface = $httpClientInterface;
-        $this->loggerInterface = $loggerInterface;
-        $this->throttleInterface = $throttleInterface;
 
         /* code below requires settings, browser */
 
@@ -47,10 +45,7 @@ final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         return $this->call($endpoint, Method::GET);
     }
 
-    /**
-    * @param mixed $data
-    */
-    public function post(string $endpoint, $data = null): ApiResponse
+    public function post(string $endpoint, mixed $data = null): ApiResponse
     {
         return $this->call($endpoint, Method::POST, $data);
     }
@@ -60,20 +55,14 @@ final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
         $this->authInterface = $authInterface;
     }
 
-    /**
-    * @return bool|string
-    */
-    public function setting(string $setting)
+    public function setting(string $setting): bool|string
     {
         return $this->settings->get($setting);
     }
 
-    /**
-    * @param mixed $data
-    */
-    protected function call(string $endpoint, string $method, $data = null): ApiResponse
+    protected function call(string $endpoint, string $method, mixed $data = null): ApiResponse
     {
-        $url = \sprintf('%s%s', Url::API, $endpoint);
+        $url = sprintf('%s%s', Url::API, $endpoint);
         if ($this->setting('rateLimiting')) {
             $this->throttleInterface->throttle();
         }
@@ -82,31 +71,36 @@ final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
                 break;
             case Method::POST:
                 if (!empty($data)) {
-                    if (\is_array($data)) {
-                        $data = \json_encode($data);
+                    if (is_array($data)) {
+                        $data = json_encode($data);
                     }
                     $this->httpClientInterface->setRequestContentType('application/json');
                     $this->httpClientInterface->setRequestData($data);
                 }
+
                 break;
             default:
                 throw new ApiException('Method not implemented.');
         }
         $this->httpClientInterface->setMethod($method);
         $this->setAuthorizationHeader();
-        $response = $this->httpClientInterface->retrieve($url); // \WebServCo\Framework\Http\Response
+        // \WebServCo\Framework\Http\Response
+        $response = $this->httpClientInterface->retrieve($url);
+
         return $this->processResponse($endpoint, $method, $response);
     }
 
     protected function processResponse(string $endpoint, string $method, Response $response): ApiResponse
     {
-        $apiResponse = new ApiResponse($endpoint, $method, $response); // \WebServCo\DiscogsApi\ApiResponse
+        // \WebServCo\DiscogsApi\ApiResponse
+        $apiResponse = new ApiResponse($endpoint, $method, $response);
         if ($this->setting('rateLimiting')) {
             $rateLimitRemaining = $apiResponse->getRateLimitRemaining();
             $this->throttleInterface->set($rateLimitRemaining);
         }
 
-        $apiResponseHandler = new \WebServCo\DiscogsApi\ApiResponseHandler($apiResponse);
+        $apiResponseHandler = new ApiResponseHandler($apiResponse);
+
         return $apiResponseHandler->handle();
     }
 
@@ -130,7 +124,7 @@ final class Client implements \WebServCo\DiscogsApi\Interfaces\ApiInterface
     */
     protected function setAcceptHeader(): void
     {
-        $this->httpClientInterface->setRequestHeader('Accept', \WebServCo\DiscogsApi\Versioning\V2\Accept::DISCOGS);
+        $this->httpClientInterface->setRequestHeader('Accept', Accept::DISCOGS);
     }
 
     /*

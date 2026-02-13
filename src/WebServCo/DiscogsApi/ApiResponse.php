@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi;
 
+use WebServCo\Api\AbstractResponse;
 use WebServCo\DiscogsApi\Exceptions\ApiResponseException;
 use WebServCo\Framework\Http\Response;
 
-final class ApiResponse extends \WebServCo\Api\AbstractResponse
+use function in_array;
+use function strval;
+
+final class ApiResponse extends AbstractResponse
 {
     protected string $endpoint;
 
@@ -15,14 +19,16 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
 
     protected string $method;
 
-    protected Response $response; // \WebServCo\Framework\Http\Response
+    // \WebServCo\Framework\Http\Response
+    protected Response $response;
 
     protected int $status;
 
     public function getErrorMessage(): string
     {
-        if (\in_array($this->status, [200, 201, 204], true)) {
-            return ''; // no error
+        if (in_array($this->status, [200, 201, 204], true)) {
+            // no error
+            return '';
         }
 
         if (isset($this->data['error'])) {
@@ -32,8 +38,9 @@ final class ApiResponse extends \WebServCo\Api\AbstractResponse
             return $this->data['message'];
         }
         if (!empty($this->data)) {
-            return \strval($this->data);
+            return strval($this->data);
         }
+
         return ApiResponseException::DEFAULT_MESSAGE;
     }
 

@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
-final class CatNos implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
+use WebServCo\DiscogsApi\Interfaces\ParserInterface;
+
+use function implode;
+use function is_array;
+
+final class CatNos implements ParserInterface
 {
     /**
     * @param array<int|string,mixed> $data
@@ -13,12 +18,13 @@ final class CatNos implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
     {
         $result = '';
         $catnos = [];
-        if (\is_array($data)) {
+        if (is_array($data)) {
             foreach ($data as $item) {
-                $catnos[] = \WebServCo\DiscogsApi\Parsers\Collection\CatNo::parse($item);
+                $catnos[] = CatNo::parse($item);
             }
-            $result = \implode(', ', $catnos);
+            $result = implode(', ', $catnos);
         }
+
         return $result;
     }
 }

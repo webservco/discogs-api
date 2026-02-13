@@ -4,27 +4,22 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi;
 
+use InvalidArgumentException;
+
+use function property_exists;
+
 final class Settings
 {
-    protected bool $debug;
-    protected bool $rateLimiting;
-    protected string $userAgent;
-
-    public function __construct(bool $debug, bool $rateLimiting, string $userAgent)
+    public function __construct(protected bool $debug, protected bool $rateLimiting, protected string $userAgent)
     {
-        $this->debug = $debug;
-        $this->rateLimiting = $rateLimiting;
-        $this->userAgent = $userAgent;
     }
 
-    /**
-    * @return bool|string
-    */
-    public function get(string $setting)
+    public function get(string $setting): bool|string
     {
-        if (!\property_exists($this, $setting)) {
-            throw new \InvalidArgumentException('Invalid parameter specified');
+        if (!property_exists($this, $setting)) {
+            throw new InvalidArgumentException('Invalid parameter specified');
         }
+
         return $this->$setting;
     }
 }

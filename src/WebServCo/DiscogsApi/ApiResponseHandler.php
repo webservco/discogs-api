@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi;
 
+use WebServCo\DiscogsApi\Exceptions\ApiResponseException;
+
 final class ApiResponseHandler
 {
-    protected ApiResponse $apiResponse;
-
-    public function __construct(ApiResponse $apiResponse)
+    public function __construct(protected ApiResponse $apiResponse)
     {
-        $this->apiResponse = $apiResponse;
     }
 
     public function handle(): ApiResponse
@@ -75,7 +74,7 @@ final class ApiResponseHandler
                 * (which will help us track down your specific issue).
                 */
             default:
-                throw new \WebServCo\DiscogsApi\Exceptions\ApiResponseException($this->apiResponse->getErrorMessage());
+                throw new ApiResponseException($this->apiResponse->getErrorMessage());
         }
     }
 }

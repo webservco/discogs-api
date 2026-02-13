@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Utilities;
 
+use function preg_replace;
+use function sprintf;
+use function trim;
+
 final class Name
 {
     /**
@@ -25,17 +29,19 @@ final class Name
 
     public function removeNumbering(string $data): string
     {
-        $result = \preg_replace('/\([0-9]+\)/', '', $data); // remove numbering
-        return \trim((string) $result);
+        // remove numbering
+        $result = preg_replace('/\([0-9]+\)/', '', $data);
+
+        return trim((string) $result);
     }
 
     public function removePrefixes(string $data): string
     {
         $patterns = [];
         foreach ($this->prefixes as $item) {
-            $patterns[] = \sprintf('/^%s /i', $item);
+            $patterns[] = sprintf('/^%s /i', $item);
         }
 
-        return (string) \preg_replace($patterns, '', $data);
+        return (string) preg_replace($patterns, '', $data);
     }
 }

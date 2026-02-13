@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Api\User\Identity;
 
-final class Profile extends \WebServCo\DiscogsApi\Api\User\AbstractUser
+use WebServCo\DiscogsApi\Api\User\AbstractUser;
+use WebServCo\DiscogsApi\ApiResponse;
+use WebServCo\DiscogsApi\Exceptions\ApiException;
+
+use function sprintf;
+
+final class Profile extends AbstractUser
 {
-    public function get(): \WebServCo\DiscogsApi\ApiResponse
+    public function get(): ApiResponse
     {
-        return $this->api->get(\sprintf('users/%s', $this->username));
+        return $this->api->get(sprintf('users/%s', $this->username));
     }
 
     public function post(): void
     {
-        throw new \WebServCo\DiscogsApi\Exceptions\ApiException('Functionality not implemented.');
+        throw new ApiException('Functionality not implemented.');
     }
 }

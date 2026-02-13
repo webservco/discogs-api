@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsApi\Parsers\Collection;
 
-final class Labels implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
+use WebServCo\DiscogsApi\Interfaces\ParserInterface;
+
+use function array_unique;
+use function implode;
+use function is_array;
+
+final class Labels implements ParserInterface
 {
     /**
     * @param array<int|string,mixed> $data
@@ -13,14 +19,15 @@ final class Labels implements \WebServCo\DiscogsApi\Interfaces\ParserInterface
     {
         $result = '';
         $labels = [];
-        if (\is_array($data)) {
+        if (is_array($data)) {
             foreach ($data as $item) {
-                $labels[] = \WebServCo\DiscogsApi\Parsers\Collection\Label::parse($item);
+                $labels[] = Label::parse($item);
             }
             // Remove duplicates (same label can appear multiple times on the same release).
-            $labels = \array_unique($labels);
-            $result = \implode(', ', $labels);
+            $labels = array_unique($labels);
+            $result = implode(', ', $labels);
         }
+
         return $result;
     }
 }
