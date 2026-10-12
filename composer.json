@@ -1,7 +1,7 @@
 {
     "name" : "webservco/discogs-api",
     "type" : "library",
-    "description" : "A PHP client library for Discogs.",
+    "description" : "A PHP library for webservco/framework. Client for the Discogs API, with authentication, rate limiting and error handling built in.",
     "keywords" : [
         "webservco",
         "discogs-api"
